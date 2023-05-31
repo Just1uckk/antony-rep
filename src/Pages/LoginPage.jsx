@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Button from "@mui/material/Button";
-import { useDispatch, useSelector } from "react-redux";
-import { auth, user } from "../components/Firebase";
+import { useDispatch } from "react-redux";
+import { auth } from "../components/Firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { ToastContainer, toast } from "react-toastify";
 import { NavLink, useNavigate } from "react-router-dom";

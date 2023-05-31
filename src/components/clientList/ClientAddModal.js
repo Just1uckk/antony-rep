@@ -33,7 +33,7 @@ export function ClientAddModal() {
 
     const setName = useSelector((state) => state.toolkit.clientAddModalName)
     const dispatch = useDispatch();
-    const [clientsName, setclientsName] = useState(setName?setName:'');
+    const [clientsName, setclientsName] = useState('');
     const [clientsNum, setclientsNum] = useState("");
     const [clientsDiscount, setclientsDiscount] = useState("0");
 

@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import NestedClientsListModal from "../components/clientList/ClientListModal";
 import { Box, TextField } from "@mui/material";
@@ -19,8 +19,9 @@ const MainPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const onLogin = async () => {
-    const user = auth.onAuthStateChanged(function(user) {
+  
+  useEffect(() => {
+    auth.onAuthStateChanged(function(user) {
       if (user) {
         dispatch(fetchClients());
         dispatch(fetchOrders());
@@ -28,11 +29,7 @@ const MainPage = () => {
         navigate("/login");
       }
     });
-  };
-
-  useEffect(() => {
-    onLogin();
-  }, []);
+  });
 
   return (
     <div>

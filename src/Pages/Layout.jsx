@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink, Outlet } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import styled from "styled-components";
 import illustration45 from "../components/img/illustration45.svg"
 import illustration59 from "../components/img/illustration59.svg"
