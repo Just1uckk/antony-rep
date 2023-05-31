@@ -1,8 +1,8 @@
 import React from 'react'
 import { Autocomplete, Box, Button, TextField, createFilterOptions } from "@mui/material";
-import { InfoBlock } from '../StyledComponents';
+import { InfoBlock } from '../../StyledComponents';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchClients, openModal, orderStateUpdate } from '../toolkitSlice';
+import { fetchClients, openModal, orderStateUpdate } from '../../toolkitSlice';
 
 const filter = createFilterOptions();
 

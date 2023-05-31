@@ -9,7 +9,8 @@ import { orderStateUpdate } from "../../toolkitSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers-pro";
 import { InfoBlock } from "../../StyledComponents";
-import OrderClientSelectorComp from "../OrderClientSelectorComp";
+import OrderClientSelectorComp from "./OrderClientSelectorComp";
+import { ToastContainer } from "react-toastify";
 
 
 
@@ -237,6 +238,7 @@ const OrderInfoTab = () => {
           </InfoBlock>
         </Box>
       </Box>
+      <ToastContainer/>
     </div>
   );
 };

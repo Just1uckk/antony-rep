@@ -19,6 +19,7 @@ import PrintIcon from "@mui/icons-material/Print";
 import { OrderPrintTableGen } from "./OrderPrintTableGen";
 import { statusDecode } from "../WorkDecoding";
 import { useMemo } from "react";
+import { useState } from "react";
 
 function Row(props) {
   const dispatch = useDispatch();
@@ -127,13 +128,22 @@ function Row(props) {
 
 export default function CollapsibleTable({ search }) {
   const ordersData = useSelector((state) => state.globalOrders.orders);
-  // const orders = ordersData ? ordersData : [];
+  const [plugValue, setPlugValue]=useState('')
   const totalOrders = useMemo(() => {
+    if(!ordersData){setPlugValue('noOrders')} else if (ordersData&&!ordersData.filter((obj) => obj.ordID.includes(search)).length) {setPlugValue('notFound')}else{setPlugValue('')}
     if (search) {
       return ordersData.filter((obj) => obj.ordID.includes(search));
     }
     return ordersData;
   }, [search, ordersData]);
+
+  const emplyPlug = () => {
+    if(plugValue === "notFound"){
+      return <caption> Не було знайдено підходящих замовлень. Спробуйте шукати за номером замовлення. </caption>
+    } else if (plugValue === "noOrders"){
+      return <caption> Додайте перше замовлення, щоб це повідомлення зникло. </caption>
+    }
+  }
 
   return (
     <TableContainer component={Paper}>
@@ -154,6 +164,7 @@ export default function CollapsibleTable({ search }) {
         <TableBody>
           { totalOrders.length ? totalOrders.map((row, index) => <Row key={index} row={row} />) : null}
         </TableBody>
+        {emplyPlug()}
       </Table>
     </TableContainer>
   );

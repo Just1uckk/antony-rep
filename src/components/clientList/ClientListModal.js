@@ -55,14 +55,49 @@ const NestedClientsListModal = (state) => {
               fullWidth
               variant="filled"
               value={searchInput}
-              label="search"
+              label="Пошук"
               type="string"
-              placeholder="search"
               onChange={(e) => {
                 setSearchInput(e.target.value);
               }}
             ></TextField>
           </Box>
+          <Box sx={{backgroundColor:"WhiteSmoke", height: "50px",                      alignItems:"center", display:"flex", marginBottom: "10px"}}>
+            <Grid
+                    container
+                    sx={{
+                      justifyContent: "space-between",
+                      height: "30px",
+                      fontStyle:"italic",
+                    }}
+                  >
+                    <Grid xs={0.01} item={true}></Grid>
+                    <Grid
+                    item={true}
+                      xs={4}
+                      sx={{
+                        alignSelf: "center",
+                        textAlign: "left",
+                      }}
+                    >
+                      Ім'я Клієнта
+                    </Grid>
+                    <Grid item={true} xs={4} sx={{ alignSelf: "center" }}>
+                      Номер телефону
+                    </Grid>
+                    <Grid
+                    item={true}
+                      xs={2}
+                      sx={{
+                        alignSelf: "center",
+                        textAlign: "right",
+                      }}
+                    >
+                      Скидка
+                    </Grid>
+                    <Grid item={true} xs={0.4}></Grid>
+                  </Grid>
+            </Box>
           <Box
             sx={{ overflowY: "scroll", overflowX: "hidden", maxHeight: "60vh" }}
           >
@@ -105,7 +140,7 @@ const NestedClientsListModal = (state) => {
             dispatch(openModal("clientAddModalState"))
           }}
         >
-          Add new client
+          Додати Клієнта
         </Button>
         </Box>
       </Modal>

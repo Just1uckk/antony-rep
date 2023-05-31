@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { deleteDoc, doc, setDoc } from "firebase/firestore";
 import getClients, { db } from "./Firebase";
 import { nanoid } from "nanoid";
+import { toast } from "react-toastify";
 
 export const fetchClients = createAsyncThunk(
     'toolkit/fetchClients',
@@ -19,6 +20,7 @@ const toolkitSlice = createSlice({
         clientAddModalState: false,
         clientAddModalName: '',
         clientModalState: false,
+        orderDeleteModal: false,
         orderModalState: false,
         orderPrintModalState: false,
         orderMaterialAdditionalState: false,
@@ -67,7 +69,9 @@ const toolkitSlice = createSlice({
                 phoneNum: cPhoneNum
             });
         },
-        uploadNewOrder(initialState){
+        uploadNewOrder(initialState){ 
+            const notify = (e) => toast(e);
+            if(initialState.ordID&&initialState.dateStart&&initialState.dateFinish&&initialState.clID&&initialState.status) {
             const ranID = nanoid()
             setDoc(doc(db, "orders", ranID), {
             ranID,
@@ -87,6 +91,7 @@ const toolkitSlice = createSlice({
             Object.keys(initialState.tempOrderInfo).forEach(k => initialState.tempOrderInfo[k] = '')
             initialState.tempMaterialInfo = [];      
             initialState.orderModalState = !initialState.orderModalState
+        } else {notify(`Поля мають бути заповнені`)}
         },
         additionalWorkPush(initialState, {payload:data}) {
             if(data.work === 1) {
@@ -105,7 +110,10 @@ const toolkitSlice = createSlice({
             } else if(typeof propName === 'object' && !Array.isArray(propName) && propName !== null && propName.name ==='orderPrintModalState'){
             initialState[propName.name] = !initialState[propName.name]
             initialState.orderMaterialAdditionalIndex = propName.index
-            } else if (typeof propName === 'object' && !Array.isArray(propName) && propName !== null) {
+            } else if (typeof propName === 'object' && !Array.isArray(propName) && propName !== null && propName.name ==='clientAddModalState') {
+                initialState.clientAddModalName = propName.value
+                initialState[propName.name] = !initialState[propName.name]
+            }else if (typeof propName === 'object' && !Array.isArray(propName) && propName !== null) {
                 initialState[propName.name] = !initialState[propName.name]
                 initialState.orderPrint = propName.value
         } else {

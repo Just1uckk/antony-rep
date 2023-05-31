@@ -91,9 +91,9 @@ const LoginPage = () => {
             notify(error.message);
           }
         }}
-      > Log in </Button>
-      <p style={{marginTop: "20px"}}>якщо в вас нема облікового запису :</p>
-      <NavLink to={"/signup"} style={{color: "blue", display: "block", alignContent:"end"}}> зареєструйтеся </NavLink>
+      > Увійти </Button>
+      <p style={{marginTop: "20px"}}>Якщо в вас нема облікового запису :</p>
+      <NavLink to={"/signup"} style={{color: "blue", display: "block", alignContent:"end"}}> Зареєструватия </NavLink>
       </div>
       </LoginBlock>
       <ToastContainer />

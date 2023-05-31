@@ -33,10 +33,10 @@ const updateDB = () => {
 // }
 
 const actions = [
-  { icon: <PersonAddIcon />, name: 'додати клієнта', onClick: openUserModal },
-  { icon: <LibraryAddIcon />, name: 'додати замовлення', onClick: openOrderModal},
+  { icon: <PersonAddIcon />, name: 'Додати Клієнта', onClick: openUserModal },
+  { icon: <LibraryAddIcon />, name: 'Додати замовлення', onClick: openOrderModal},
   // { icon: <PrintIcon />, name: 'Print', onClick: noneTest},
-  { icon: <RefreshIcon />, name: 'оновити базу', onClick: updateDB},
+  { icon: <RefreshIcon />, name: 'Оновити базу', onClick: updateDB},
 ];
 
   return (

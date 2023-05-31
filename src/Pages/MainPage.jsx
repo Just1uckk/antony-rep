@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import NestedClientsListModal from "../components/clientList/ClientListModal";
 import { Box, TextField } from "@mui/material";
 import BasicSpeedDial from "../components/SpeedDialCustom";
-import OrderCreateModal from "../components/orderComp/OrderCreateModal";
+import OrderCreateModal from "../components/orderComp/orderModalTabs/OrderCreateModal";
 import CollapsibleTable from "../components/orderComp/OrderMainPageTable";
 import { ClientAddModal } from "../components/clientList/ClientAddModal";
 import { fetchOrders } from "../components/store/GloabalOrdersList";
@@ -12,6 +12,8 @@ import { fetchClients } from "../components/toolkitSlice";
 import OrderPrintModal from "../components/orderComp/OrderPrintModal";
 import { useState } from "react";
 import { auth } from "../components/Firebase";
+import OrderDeleteModal from "../components/orderComp/orderModalTabs/OrderDeleteModal";
+
 
 //проверка на вход в систему
 const MainPage = () => {
@@ -35,6 +37,7 @@ const MainPage = () => {
     <div>
       <Box style={{ position: "absolute", right: "5%", top: "-235px" }}>
         <NestedClientsListModal />
+        <OrderDeleteModal/>
         <ClientAddModal />
         <OrderCreateModal />
         <OrderPrintModal />

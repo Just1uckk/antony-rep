@@ -1,11 +1,9 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import Button from "@mui/material/Button";
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { ToastContainer, toast } from "react-toastify";
 import { auth } from '../components/Firebase';
-import { useDispatch, useSelector } from 'react-redux';
 import { NavLink, useNavigate } from "react-router-dom";
-import { userLogined } from "../components/toolkitSlice";
 import styled from 'styled-components';
 import { TextField } from '@mui/material';
 
@@ -29,28 +27,15 @@ const SignupBlock = styled.div`
 const SignupPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const dispatch = useDispatch();
-  const loginedStatus = useSelector((state) => state.toolkit.logined.payload);
   const navigate = useNavigate();
   const rediredtToLoginPage = async (data) => {
     if (data.operationType === "signIn") {
-      await dispatch(userLogined(data.operationType));
-      console.log(userLogined);
       return navigate("/");
     } else {
       return null;
     }
   };
   const notify = (e) => toast(e);
-
-  const checkIfLogined = () => {
-    if (loginedStatus === "signIn") {
-      console.log(loginedStatus, "redirecting to a main page")
-      navigate("/");
-    };
-  };
-
-  useEffect(checkIfLogined);
 
   return (
     <div style={{display:"flex", justifyContent:"center",width: "100%"}}>
@@ -96,12 +81,12 @@ variant="filled"
             console.log(data.operationType);
             rediredtToLoginPage(data);
           } catch (error) {
-            notify(error.message);
+            notify(`Виникла помилка:\n${error.message}`);
           }
         }}
-      > Register </Button>
+      > Зареєструватися </Button>
         <p style={{marginTop: "20px"}}>Якщо в вас є обліковий запис : </p>
-        <NavLink to={"/login"} style={{color: "blue"}}> увійдіть </NavLink>
+        <NavLink to={"/login"} style={{color: "blue"}}> Увійти </NavLink>
         </div>
       </SignupBlock>
       <ToastContainer />

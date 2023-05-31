@@ -2,10 +2,10 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import { useDispatch, useSelector } from 'react-redux';
-import { openModal, orderDelete, orderModalHandleClose, orderUpdate, uploadNewOrder } from '../toolkitSlice';
-import OrderTabs from './OrderTabs';
+import { openModal, orderDelete, orderModalHandleClose, orderUpdate, uploadNewOrder } from '../../toolkitSlice';
+import OrderTabs from '../OrderTabs';
 import { Button } from '@mui/material';
-import { fetchOrders } from '../store/GloabalOrdersList';
+import { fetchOrders } from '../../store/GloabalOrdersList';
 
 const style = {
   position: 'absolute',
@@ -59,7 +59,7 @@ export default function OrderCreateModal() {
         color="error"
         sx={{ margin: "10px 25px 10px 25px",width:100, display: editCheck }}
         variant="contained"
-        onClick={() => {dispatch(orderDelete()); dispatch(fetchOrders())}}
+        onClick={() => {dispatch(openModal('orderDeleteModal'))}}
       >
         Видалити
       </Button>

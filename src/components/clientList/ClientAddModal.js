@@ -3,11 +3,12 @@ import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import Button from "@mui/material/Button";
 import { useDispatch, useSelector } from "react-redux";
-import { openModal } from "../toolkitSlice";
+import { fetchClients, openModal } from "../toolkitSlice";
 import { uploadNewClient } from "../toolkitSlice";
 import { nanoid } from "nanoid";
 import { TextField } from "@mui/material";
 import InputAdornment from "@mui/material/InputAdornment";
+import { ToastContainer, toast } from "react-toastify";
 
 const style = {
     position: "absolute",
@@ -25,10 +26,11 @@ const style = {
 
 
 export function ClientAddModal() {
+  const notify = (e) => toast(e);
 
     const handleClose = () => {
-        dispatch(openModal("clientAddModalState"));
-
+        dispatch(openModal({name: 'clientAddModalState', value: ''}));
+        setclientsName('');setclientsNum('');setclientsDiscount('')
       };
 
     const setName = useSelector((state) => state.toolkit.clientAddModalName)
@@ -53,20 +55,16 @@ export function ClientAddModal() {
         id: id,
         phoneNum: clientsNum,
       };
-      console.log(
-        newClient.id,
-        newClient.Name,
-        newClient.phoneNum,
-        newClient.discount
-      );
       if (clientsName && clientsNum && id) {
+        handleClose();
         dispatch(uploadNewClient(newClient));
         setclientsDiscount("");
         setclientsName("");
         setclientsNum("");
       } else {
-        alert(`input's can not be empty`);
+        notify(`Поля мають бути заповнені`);
       }
+      dispatch(fetchClients())
     };
   
     return (
@@ -77,7 +75,7 @@ export function ClientAddModal() {
               sx={{ my: 1, bgcolor: "white", borderRadius: 4 }}
               fullWidth
               variant="outlined"
-              value={test}
+              value={clientsName}
               label="Ім'я"
               type="string"
               onChange={(e) => setclientsName(e.target.value)}
@@ -97,7 +95,7 @@ export function ClientAddModal() {
               onChange={(e) => isNaN(e.target.value)? '' :setclientsNum(e.target.value)}
             ></TextField>
             <TextField
-              sx={{ my: 1, bgcolor: "white", borderRadius: 4 }}
+              sx={{ my: 1, bgcolor: "white", borderRadius: 4, paddingBottom: "10px" }}
               fullWidth
               variant="outlined"
               value={clientsDiscount ? clientsDiscount : ""}
@@ -112,11 +110,11 @@ export function ClientAddModal() {
               variant="contained"
               onClick={() => {
                 groupClientInfo();
-                handleClose();
               }}
             >
-              Add Client
+              Додати Клієнта
             </Button>
+            <ToastContainer/>
           </Box>
         </Modal>
       </React.Fragment>

@@ -53,7 +53,7 @@ const Layout = () => {
       <h3 style={{textAlign: "right"}}>облік замовлень</h3>
       </HeaderBlock>
          </HeaderContainer>
-      <main style={{height: "85vh",display: "flex", justifyContent: "center", alignItems: "center", zIndex: 2}}>
+      <main style={{height: "85vh",display: "flex", justifyContent: "center",alignItems:"center", zIndex: 2}}>
         <div style={{ zIndex: 1, width:"100%"}}>
         <Outlet></Outlet>
         </div>
