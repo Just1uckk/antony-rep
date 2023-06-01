@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { openModal } from "../toolkitSlice";
 import pdfMake from "pdfmake/build/pdfmake";
 import pdfFont from "pdfmake/build/vfs_fonts"
+import { useEffect } from "react";
 pdfMake.vfs = pdfFont.pdfMake.vfs
 
 const style = {
@@ -26,16 +27,23 @@ export default function OrderPrintModal() {
     dispatch(openModal("orderPrintModalState"));
   };
 
-const dd = useSelector((state) => state.toolkit.orderPrintTable)
-if(dd) {
-  dd.getDataUrl((data)=>{
-    if(data){
-      const currentElement = document.getElementById('testPdf')
-      if(currentElement) currentElement.src = data
-    }
-  })
-}
+const tableData = useSelector((state) => state.toolkit.orderPrintTable)
 
+useEffect(()=>{
+  const tableGen = async () => {
+    if(tableData) {
+      const dd = await pdfMake.createPdf(tableData).getDataUrl((data)=>{
+        console.log(data)
+        if(data){
+          const currentElement = document.getElementById('orderPdf')
+          if(currentElement) currentElement.src = data
+        }
+      })
+      console.log(tableData, dd)
+    }
+  }
+  tableGen()
+} ,[tableData])
 
   return (
     <div>
@@ -47,7 +55,7 @@ if(dd) {
       >
         <Box sx={style}>
         <div style={{display: "flex", justifyContent: "center"}}>
-        <embed id='testPdf' style={{width: "100%", height: "85vh"}} type='application/pdf'/>
+        <embed id='orderPdf' style={{width: "100%", height: "85vh"}} type='application/pdf'/>
         </div>
         </Box>
       </Modal>

@@ -81,8 +81,13 @@ variant="filled"
             console.log(data.operationType);
             rediredtToLoginPage(data);
           } catch (error) {
-            notify(`Виникла помилка:\n${error.message}`);
-          }
+            if(error.message.includes(`email-already-in-use`)){
+            notify(`Такий Email вже зареєстровано`);
+          } else if (error.message.includes(`missing-password`)){
+            notify(`Пароль не введений`);
+          } else {
+            notify(`Виникла невідома помилка: ${error.message} `);
+          }}
         }}
       > Зареєструватися </Button>
         <p style={{marginTop: "20px"}}>Якщо в вас є обліковий запис : </p>

@@ -178,6 +178,9 @@ const toolkitSlice = createSlice({
         orderSaveTable(initialState, {payload:table}){
             initialState.orderPrintTable = table
         },
+        handleExitClients(initialState){
+            initialState.clientsAllList = ''
+        }
         },
         extraReducers: {
             [fetchClients.pending]: (initialState, action) => {
@@ -197,4 +200,4 @@ const toolkitSlice = createSlice({
 })
 
 export default toolkitSlice.reducer
-export const {orderDeleteMaterial, orderDeleteStatusUpdate, orderModalHandleClose, orderMaterialRemoveAddition, additionalWorkPush, openModal, orderMaterialAddNewObject, orderMaterialUpdate, orderStateUpdate, tempOrderSave, userLogined, uploadNewClient, getClientsData, uploadNewOrder, orderModalEdit, orderDelete, orderUpdate, orderSaveTable} = toolkitSlice.actions
+export const {orderDeleteMaterial, orderDeleteStatusUpdate, orderModalHandleClose, orderMaterialRemoveAddition, additionalWorkPush, openModal, orderMaterialAddNewObject, orderMaterialUpdate, orderStateUpdate, tempOrderSave, userLogined, uploadNewClient, getClientsData, uploadNewOrder, orderModalEdit, orderDelete, orderUpdate, orderSaveTable, handleExitClients} = toolkitSlice.actions

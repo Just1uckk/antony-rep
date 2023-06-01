@@ -6,6 +6,9 @@ import illustration59 from "../components/img/illustration59.svg"
 import { Box, Button } from '@mui/material'
 import { signOut } from "firebase/auth";
 import { auth } from "../components/Firebase";
+import { useDispatch, useSelector } from "react-redux";
+import { handleExitClients } from "../components/toolkitSlice";
+import { handleExitOrders } from "../components/store/GloabalOrdersList";
 
 const MainContainer = styled.div`
   background: #1E1E1E;
@@ -41,6 +44,10 @@ const FooterColumn = styled.div`
 `
 
 const Layout = () => {
+  const dispatch = useDispatch();
+  const checkForClients = useSelector((state) => state.toolkit.clientsAllList)
+  const buttonDisplay = checkForClients.length ? '': "none"
+
   return (
     <>
     <div style={{ backgroundImage: `url(${illustration45})`, position:"absolute", width: "560px", height: "554px", right: "0",  backgroundPosition: "158px -90px", backgroundRepeat: "no-repeat"}}>
@@ -61,13 +68,13 @@ const Layout = () => {
       <FooterContainer>
         <FooterColumn>
           <Box
-          sx={{backgroundColor:"white",zIndex: 1, borderRadius:"4px"}}
+          sx={{backgroundColor:"white",zIndex: 1, borderRadius:"4px", display: buttonDisplay}}
           >
           <Button
           size="small"
           variant="outlined"
           style={{zIndex: 1}}
-          onClick={()=>{signOut(auth)}}
+          onClick={()=>{signOut(auth); dispatch(handleExitClients()); dispatch(handleExitOrders())}}
           >Вийти</Button>
           </Box>
           </FooterColumn>

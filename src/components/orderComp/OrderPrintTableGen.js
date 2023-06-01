@@ -124,7 +124,5 @@ export const OrderPrintTableGen = (row, foundClient) => {
     const table = {
         content: order
     }
-    
-    let data = pdfMake.createPdf(table)
-    return(data)
+    return(table)
 }
