@@ -20,6 +20,7 @@ import { OrderPrintTableGen } from "./OrderPrintTableGen";
 import { statusDecode } from "../WorkDecoding";
 import { useMemo } from "react";
 import { useState } from "react";
+import pdfMake from "pdfmake/build/pdfmake";
 
 function Row(props) {
   const dispatch = useDispatch();
@@ -48,8 +49,12 @@ function Row(props) {
 
   const modalPrint = (row) => {
     const table = OrderPrintTableGen(row, foundClient);
-    dispatch(orderSaveTable(table));
-    dispatch(openModal("orderPrintModalState"));
+    pdfMake.createPdf(table).getDataUrl((data)=>{
+      if (data) {
+        dispatch(orderSaveTable(data));
+        dispatch(openModal("orderPrintModalState"));
+      }
+    })
   };
 
   return (

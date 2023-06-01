@@ -155,6 +155,8 @@ const toolkitSlice = createSlice({
             initialState.orderModalState = !initialState.orderModalState
         },
         orderUpdate(initialState){
+            const notify = (e) => toast(e);
+            if(initialState.tempOrderInfo.ordID&&initialState.tempOrderInfo.dateStart&&initialState.tempOrderInfo.dateFinish&&initialState.tempOrderInfo.clID&&initialState.tempOrderInfo.status) {
             deleteDoc(doc(db, "orders", initialState.tempOrderInfo.ranID));
             setDoc(doc(db, "orders", initialState.tempOrderInfo.ranID), {
                 ranID:initialState.tempOrderInfo.ranID,
@@ -169,11 +171,14 @@ const toolkitSlice = createSlice({
                 delivery:initialState.tempOrderInfo.delivery,
                 adress:initialState.tempOrderInfo.adress,
                 comments:initialState.tempOrderInfo.comments,
-                material: initialState.tempMaterialInfo
+                material: initialState.tempMaterialInfo.filter((element)=>{
+                    if(element.width && element.height && element.count && element.material && element.thickness){return true}
+                    return false
+                })
                 });
                 Object.keys(initialState.tempOrderInfo).forEach(k => initialState.tempOrderInfo[k] = '')
                 initialState.tempMaterialInfo = [];      
-                initialState.orderModalState = !initialState.orderModalState
+                initialState.orderModalState = !initialState.orderModalState} else {notify(`Поля мають бути заповнені`)}
         },
         orderSaveTable(initialState, {payload:table}){
             initialState.orderPrintTable = table

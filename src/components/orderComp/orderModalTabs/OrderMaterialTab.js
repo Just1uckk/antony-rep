@@ -74,12 +74,12 @@ const OrderMaterialTab = () => {
                   <TableRow>
                     <TableCell sx={{ display: deleteElement }}></TableCell>
                     <TableCell>№</TableCell>
-                    <TableCell align="center">Кіль.</TableCell>
-                    <TableCell align="center">Матеріал</TableCell>
-                    <TableCell align="center">Товщ</TableCell>
-                    <TableCell align="center">Шир.мм</TableCell>
-                    <TableCell align="center">Вис.мм</TableCell>
-                    <TableCell align="center">Обробка</TableCell>
+                    <TableCell align="center">Кіль. *</TableCell>
+                    <TableCell align="center">Матеріал *</TableCell>
+                    <TableCell align="center">Товщ *</TableCell>
+                    <TableCell align="center">Шир.мм *</TableCell>
+                    <TableCell align="center">Вис.мм *</TableCell>
+                    <TableCell align="center">Обробка *</TableCell>
                     <TableCell align="center" sx={{ display: dispDrill }}>
                       Свердлення
                     </TableCell>

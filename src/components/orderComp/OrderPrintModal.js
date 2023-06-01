@@ -5,7 +5,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { openModal } from "../toolkitSlice";
 import pdfMake from "pdfmake/build/pdfmake";
 import pdfFont from "pdfmake/build/vfs_fonts"
-import { useEffect } from "react";
 pdfMake.vfs = pdfFont.pdfMake.vfs
 
 const style = {
@@ -29,22 +28,6 @@ export default function OrderPrintModal() {
 
 const tableData = useSelector((state) => state.toolkit.orderPrintTable)
 
-useEffect(()=>{
-  const tableGen = async () => {
-    if(tableData) {
-      const dd = await pdfMake.createPdf(tableData).getDataUrl((data)=>{
-        console.log(data)
-        if(data){
-          const currentElement = document.getElementById('orderPdf')
-          if(currentElement) currentElement.src = data
-        }
-      })
-      console.log(tableData, dd)
-    }
-  }
-  tableGen()
-} ,[tableData])
-
   return (
     <div>
       <Modal
@@ -55,7 +38,7 @@ useEffect(()=>{
       >
         <Box sx={style}>
         <div style={{display: "flex", justifyContent: "center"}}>
-        <embed id='orderPdf' style={{width: "100%", height: "85vh"}} type='application/pdf'/>
+        <embed id='orderPdf' style={{width: "100%", height: "85vh"}} type='application/pdf' src={tableData}/>
         </div>
         </Box>
       </Modal>
