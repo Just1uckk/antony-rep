@@ -3,15 +3,16 @@ import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import { useDispatch, useSelector } from "react-redux";
 import { additionalWorkPush, openModal } from "../../toolkitSlice";
-import { Button, MenuItem, Select, TextField } from "@mui/material";
+import { Button, FormControl, InputLabel, MenuItem, Select, TextField } from "@mui/material";
 import { useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
 
 const style = {
   position: "absolute",
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: "auto",
+  width: "300px",
   height: "auto",
   bgcolor: "background.paper",
   borderRadius: "4px",
@@ -20,6 +21,7 @@ const style = {
 };
 
 export default function OrderMaterialAdditionalModal() {
+  const notify = (e) => toast(e);
   const dispatch = useDispatch();
 
   const [work, setWork] = useState("");
@@ -35,18 +37,30 @@ export default function OrderMaterialAdditionalModal() {
 
   const handleSave = () => {
     let value
-    if(work === 1 && valueOne !== false && valueTwo !== false) {
+    if(work){
+    if(work === 1 && valueOne && valueTwo) {
     value = {work, valueOne, valueTwo}
-  } else if (work === 3 && valueOne !== false) {
+  } else if (work === 3 && valueOne ) {
     value = {work, valueOne}
-  } else if (work === 4 && valueOne !== false && valueTwo !== false) {
+  } else if (work === 4 && valueOne  && valueTwo ) {
     value = {work, valueOne, valueTwo}
-  } else if (work === 5 && valueOne !== false) {
+  } else if (work === 5 && valueOne ) {
     value = {work, valueOne}
+  } else if (work === 1||work === 3||work === 4||work === 5){
+    notify('усі поля мають бути заповнені')
+    return
   } else { 
     value = {work}
   }
   dispatch(additionalWorkPush(value))
+  setWork('')
+    setValueOne('')
+    setValueTwo('')
+}
+setWork('')
+    setValueOne('')
+    setValueTwo('')
+    dispatch(openModal("orderMaterialAdditionalState"));
 }
 
   return (
@@ -60,10 +74,12 @@ export default function OrderMaterialAdditionalModal() {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <p>Оберіть роботу: ДОБАВИТЬ PLACEHOLDER</p>
+          <p style={{paddingBottom:"10px"}}>Оберіть роботу:</p>
+          <FormControl variant="standard" fullWidth sx={{paddingBottom:"10px"}}>
+          <InputLabel id='workLabel'>Робота</InputLabel>
           <Select
-            label='Оберіть опцію'
-            labelId="additional-work-first-select"
+           label="Робота"
+            labelId='workLabel'
             size="small"
             value={work}
             onChange={(e) => {
@@ -83,8 +99,12 @@ export default function OrderMaterialAdditionalModal() {
             <MenuItem value={8}>Поклійка Оракала</MenuItem>
             <MenuItem value={9}>Поклійка Броні</MenuItem>
           </Select>
+          </FormControl>
+          <FormControl variant="standard" fullWidth sx={{paddingBottom:"10px",display: [work === 1 ? "" : "none"] }}>
+          <InputLabel id='diamLabel'>Діаметр</InputLabel>
           <Select
-            sx={{ display: [work === 1 ? "" : "none"] }}
+          labelId='diamLabel'
+          label="Діаметр"
             value={valueOne}
             size="small"
             onChange={(e) => {
@@ -98,7 +118,12 @@ export default function OrderMaterialAdditionalModal() {
             <MenuItem value={9}>ø9</MenuItem>
             <MenuItem value={10}>ø10</MenuItem>
           </Select>
+          </FormControl>
+          <FormControl variant="standard" fullWidth sx={{paddingBottom:"10px",display: [work === 1 ? "" : "none"] }}>
+          <InputLabel id='countLabel'>Кількість</InputLabel>
           <Select
+          label="Кількість"
+          labelId='countLabel'
             sx={{ display: [work === 1 ? "" : "none"] }}
             value={valueTwo}
             size="small"
@@ -117,7 +142,9 @@ export default function OrderMaterialAdditionalModal() {
             <MenuItem value={9}>9 од.</MenuItem>
             <MenuItem value={10}>10 од.</MenuItem>
           </Select>
+          </FormControl>
           <TextField
+          fullWidth
             sx={{ display: [work === 3 || work === 4 ? "" : "none"] }}
             value={valueOne}
             size="small"
@@ -126,6 +153,7 @@ export default function OrderMaterialAdditionalModal() {
             }}
           ></TextField>
           <TextField
+          fullWidth
             sx={{ display: [work === 4 ? "" : "none"] }}
             value={valueOne}
             size="small"
@@ -133,8 +161,11 @@ export default function OrderMaterialAdditionalModal() {
               setValueOne(e.target.value);
             }}
           ></TextField>
+          <FormControl variant="standard" fullWidth sx={{paddingBottom:"10px",display: [work === 5 ? "" : "none"] }}>
+          <InputLabel id='sandingLabel'>Площа</InputLabel>
           <Select
-            sx={{ display: [work === 5 ? "" : "none"] }}
+          label="Площа"
+          labelId='sandingLabel'
             value={valueOne}
             size="small"
             onChange={(e) => {
@@ -147,10 +178,12 @@ export default function OrderMaterialAdditionalModal() {
             <MenuItem value={4}>1/4 Фоновий</MenuItem>
             <MenuItem value={5}>Фігурний</MenuItem>
           </Select>
+          </FormControl>
           <Button
           variant="contained"
           onClick={handleSave}
           >Додати</Button>
+          <ToastContainer/>
         </Box>
       </Modal>
     </div>

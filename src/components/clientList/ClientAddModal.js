@@ -37,7 +37,22 @@ export function ClientAddModal() {
     const dispatch = useDispatch();
     const [clientsName, setclientsName] = useState('');
     const [clientsNum, setclientsNum] = useState("");
-    const [clientsDiscount, setclientsDiscount] = useState("0");
+    const [clientsDiscount, setclientsDiscount] = useState();
+
+    const discountSet = (value) => {
+      if(value <= 100 && !isNaN(value)){
+        setclientsDiscount(value)
+      }
+      return
+    }
+
+    const phoneSet = (value) => {
+      console.log(value)
+      if(value.length <= 10 && !isNaN(value)){
+        setclientsNum(value)
+      }
+      return
+    }
 
       const test = useMemo(() => {
         if(setName && !clientsName){
@@ -92,19 +107,19 @@ export function ClientAddModal() {
                   <InputAdornment position="start">+ 38 </InputAdornment>
                 ),
               }}
-              onChange={(e) => isNaN(e.target.value)? '' :setclientsNum(e.target.value)}
+              onChange={(e) => phoneSet(e.target.value)}
             ></TextField>
             <TextField
               sx={{ my: 1, bgcolor: "white", borderRadius: 4, paddingBottom: "10px" }}
               fullWidth
               variant="outlined"
-              value={clientsDiscount ? clientsDiscount : ""}
+              value={clientsDiscount?clientsDiscount:""}
               label="Скидка"
               InputProps={{
                 endAdornment: (
                   <InputAdornment position="end"> % </InputAdornment>
                 )}}
-              onChange={(e) => isNaN(e.target.value)? '' :setclientsDiscount(e.target.value)}
+              onChange={(e) => discountSet(e.target.value)}
             ></TextField>
             <Button
               variant="contained"

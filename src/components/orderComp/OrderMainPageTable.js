@@ -139,7 +139,12 @@ export default function CollapsibleTable({ search }) {
     if (search) {
       return ordersData.filter((obj) => obj.ordID.includes(search));
     }
-    return ordersData;
+    // const splicedOrders = []
+    // for(let i = 0; i <= ordersData.length-1; i++){
+    //   splicedOrders.splice(ordersData[i].ordID, 0, ordersData[i])
+    // }
+    // return splicedOrders
+    return ordersData
   }, [search, ordersData]);
 
   const emplyPlug = () => {
@@ -151,8 +156,8 @@ export default function CollapsibleTable({ search }) {
   }
 
   return (
-    <TableContainer component={Paper}>
-      <Table aria-label="collapsible table" size="small">
+    <TableContainer component={Paper} sx={{maxHeight: "85vh"}}>
+      <Table stickyHeader aria-label="collapsible table" size="small">
         <TableHead>
           <TableRow>
             <TableCell />
@@ -166,7 +171,7 @@ export default function CollapsibleTable({ search }) {
             <TableCell align="right">Залишок</TableCell>
           </TableRow>
         </TableHead>
-        <TableBody>
+        <TableBody >
           { totalOrders.length ? totalOrders.map((row, index) => <Row key={index} row={row} />) : null}
         </TableBody>
         {emplyPlug()}

@@ -31,7 +31,8 @@ const OrderInfoTab = () => {
   };
 
   const lastOrderNum = useSelector((state) => state.globalOrders.orders).reduce((prevObj, currObj) => {
-    return prevObj.ordID > currObj.ordID ? prevObj : currObj;
+    console.log(prevObj, currObj)
+    return Number(prevObj.ordID) > Number(currObj.ordID) ? prevObj : currObj;
   });
 
   return (

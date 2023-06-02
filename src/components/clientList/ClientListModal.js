@@ -4,7 +4,7 @@ import Modal from "@mui/material/Modal";
 import Button from "@mui/material/Button";
 import { useDispatch, useSelector } from "react-redux";
 import { openModal } from "../toolkitSlice";
-import { Grid, TextField } from "@mui/material";
+import { Divider, Grid, TextField } from "@mui/material";
 
 
 const style = {
@@ -45,7 +45,7 @@ const NestedClientsListModal = (state) => {
           sx={{
             ...style,
             width: "800px",
-            maxHeight: "75vh",
+            maxHeight: "80vh",
             paddingRight: "30px",
           }}
         >
@@ -99,7 +99,7 @@ const NestedClientsListModal = (state) => {
                   </Grid>
             </Box>
           <Box
-            sx={{ overflowY: "scroll", overflowX: "hidden", maxHeight: "60vh" }}
+            sx={{ overflowY: "scroll", overflowX: "hidden", maxHeight: "60vh"}}
           >
             {searchList &&
               searchList.map((data, index) => (
@@ -134,6 +134,8 @@ const NestedClientsListModal = (state) => {
                 </Box>
               ))}
           </Box>
+          <Divider sx={{ width: "100%" }} />
+          <Box sx={{height:"15px"}}></Box>
           <Button
           variant="contained"
           onClick={() => {

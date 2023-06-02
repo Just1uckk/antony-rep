@@ -71,8 +71,9 @@ const toolkitSlice = createSlice({
         },
         uploadNewOrder(initialState){ 
             const notify = (e) => toast(e);
-            if(initialState.ordID&&initialState.dateStart&&initialState.dateFinish&&initialState.clID&&initialState.status) {
+            if(initialState.tempOrderInfo.ordID&&initialState.tempOrderInfo.dateStart&&initialState.tempOrderInfo.dateFinish&&initialState.tempOrderInfo.clID&&initialState.tempOrderInfo.status) {
             const ranID = nanoid()
+            console.log(initialState.tempOrderInfo.delivery, initialState.tempOrderInfo.installation)
             setDoc(doc(db, "orders", ranID), {
             ranID,
             ordID:initialState.tempOrderInfo.ordID,
@@ -86,9 +87,14 @@ const toolkitSlice = createSlice({
             delivery:initialState.tempOrderInfo.delivery,
             adress:initialState.tempOrderInfo.adress,
             comments:initialState.tempOrderInfo.comments,
-            material: initialState.tempMaterialInfo
+            material: initialState.tempMaterialInfo.filter((element)=>{
+                if(element.width && element.height && element.count && element.material && element.thickness){return true}
+                return false
+            })
             });
             Object.keys(initialState.tempOrderInfo).forEach(k => initialState.tempOrderInfo[k] = '')
+            initialState.tempOrderInfo.delivery = false
+            initialState.tempOrderInfo.installation = false
             initialState.tempMaterialInfo = [];      
             initialState.orderModalState = !initialState.orderModalState
         } else {notify(`Поля мають бути заповнені`)}

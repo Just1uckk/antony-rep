@@ -3,12 +3,7 @@ import { Outlet } from "react-router-dom";
 import styled from "styled-components";
 import illustration45 from "../components/img/illustration45.svg"
 import illustration59 from "../components/img/illustration59.svg"
-import { Box, Button } from '@mui/material'
-import { signOut } from "firebase/auth";
-import { auth } from "../components/Firebase";
-import { useDispatch, useSelector } from "react-redux";
-import { handleExitClients } from "../components/toolkitSlice";
-import { handleExitOrders } from "../components/store/GloabalOrdersList";
+import { Box } from '@mui/material'
 
 const MainContainer = styled.div`
   background: #1E1E1E;
@@ -37,16 +32,8 @@ const FooterContainer = styled.footer`
   padding: 20px 0px 20px 0px;
   align-items: center;
 `
-const FooterColumn = styled.div`
-  width: ${props => props.width ? props.width : "10%"};
-  align-items: end;
-  display: flex;
-`
 
 const Layout = () => {
-  const dispatch = useDispatch();
-  const checkForClients = useSelector((state) => state.toolkit.clientsAllList)
-  const buttonDisplay = checkForClients.length ? '': "none"
 
   return (
     <>
@@ -66,18 +53,6 @@ const Layout = () => {
         </div>
       </main>
       <FooterContainer>
-        <FooterColumn>
-          <Box
-          sx={{backgroundColor:"white",zIndex: 1, borderRadius:"4px", display: buttonDisplay}}
-          >
-          <Button
-          size="small"
-          variant="outlined"
-          style={{zIndex: 1}}
-          onClick={()=>{signOut(auth); dispatch(handleExitClients()); dispatch(handleExitOrders())}}
-          >Вийти</Button>
-          </Box>
-          </FooterColumn>
       </FooterContainer>
       </Box>
       </MainContainer>

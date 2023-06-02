@@ -43,8 +43,8 @@ const MainPage = () => {
         <OrderPrintModal />
         <BasicSpeedDial />
       </Box>
-      <Box sx={{ zIndex: 2 }}>
-        <Box sx={{boxSizing: "border-box",p:1.25,backgroundColor:"white", width:"15%", mb:1.5, borderRadius:'4px'}}>
+      <Box sx={{ zIndex: 2}}>
+        <Box sx={{position: "absolute" ,boxSizing: "border-box",p:1.25,backgroundColor:"white", width:"20%", mb:1.5, borderRadius:'4px', left:"270px", top: "10px"}}>
         <TextField
         value={searchValue}
         fullWidth
