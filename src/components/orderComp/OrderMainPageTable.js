@@ -132,20 +132,19 @@ function Row(props) {
 }
 
 export default function CollapsibleTable({ search }) {
-  const ordersData = useSelector((state) => state.globalOrders.orders);
+  const getOrdData = useSelector((state) => state.globalOrders.orders)
+  
   const [plugValue, setPlugValue]=useState('')
+
   const totalOrders = useMemo(() => {
+    const test = [...getOrdData]
+    const ordersData = test.sort((a,b) => (Number(a.ordID) > Number(b.ordID)) ? 1 : ((Number(b.ordID) > Number(a.ordID)) ? -1 : 0))
     if(!ordersData){setPlugValue('noOrders')} else if (ordersData&&!ordersData.filter((obj) => obj.ordID.includes(search)).length) {setPlugValue('notFound')}else{setPlugValue('')}
     if (search) {
       return ordersData.filter((obj) => obj.ordID.includes(search));
     }
-    // const splicedOrders = []
-    // for(let i = 0; i <= ordersData.length-1; i++){
-    //   splicedOrders.splice(ordersData[i].ordID, 0, ordersData[i])
-    // }
-    // return splicedOrders
     return ordersData
-  }, [search, ordersData]);
+  }, [search, getOrdData]);
 
   const emplyPlug = () => {
     if(plugValue === "notFound"){
