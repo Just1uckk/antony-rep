@@ -12,6 +12,7 @@ import RefreshIcon from '@mui/icons-material/Refresh';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import { signOut } from 'firebase/auth';
 import { auth } from './Firebase';
+import SearchIcon from '@mui/icons-material/Search';
 
 
 export default function BasicSpeedDial() {
@@ -36,10 +37,15 @@ const handleExit = () => {
   dispatch(handleExitOrders())
 }
 
+const openSearch = () => {
+  dispatch(openModal('orderMainPageSearch'))
+}
+
 const actions = [
   { icon: <PersonAddIcon />, name: 'Додати Клієнта', onClick: openUserModal },
   { icon: <LibraryAddIcon />, name: 'Додати замовлення', onClick: openOrderModal},
   { icon: <RefreshIcon />, name: 'Оновити базу', onClick: updateDB},
+  { icon: <SearchIcon />, name: 'Пошук', onClick: openSearch},
   { icon: <ExitToAppIcon />, name: 'Вийти', onClick: handleExit},
 ];
 

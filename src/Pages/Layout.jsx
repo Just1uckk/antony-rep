@@ -24,14 +24,6 @@ const HeaderContainer = styled.header`
     display: flex;
     align-items: center;
 `
-const FooterContainer = styled.footer`
-  z-index: 1;
-  height: 5vh;
-  display: flex;
-  flex-direction: row;
-  padding: 20px 0px 20px 0px;
-  align-items: center;
-`
 
 const Layout = () => {
 
@@ -47,13 +39,11 @@ const Layout = () => {
       <h3 style={{textAlign: "right"}}>облік замовлень</h3>
       </HeaderBlock>
          </HeaderContainer>
-      <main style={{height: "85vh",display: "flex", justifyContent: "center",alignItems:"center", zIndex: 2}}>
+      <main style={{height: "88vh",display: "flex", justifyContent: "center",alignItems:"center", zIndex: 2}}>
         <div style={{ zIndex: 1, width:"100%"}}>
         <Outlet></Outlet>
         </div>
       </main>
-      <FooterContainer>
-      </FooterContainer>
       </Box>
       </MainContainer>
       <div style={{ backgroundImage: `url(${illustration59})`, position:"absolute", width: "765px", height: "766px", left: "0", bottom: "0",  backgroundPosition: "-250px 305px", backgroundRepeat: "no-repeat"}}>

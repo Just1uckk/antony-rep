@@ -4,7 +4,6 @@ export const InfoBlock = styled.div`
 display: flex;
 flex-direction: row;
 align-items: center;
-/* flex-wrap: wrap; */
 white-space: nowrap;
 padding-left: 30px;
 padding-right: 30px;

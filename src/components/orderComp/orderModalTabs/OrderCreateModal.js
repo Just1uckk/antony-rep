@@ -42,14 +42,14 @@ export default function OrderCreateModal() {
         <OrderTabs/>
         <Box sx={{display: "flex", justifyContent:"space-between"}}>
         <Button
-        sx={{ margin: "10px 0 10px 25px",width:100, display: tempOrdSave.ranID? 'none' : '' }}
+        sx={{position: 'absolute', bottom: 10, margin: "10px 0 10px 25px",width:100, display: tempOrdSave.ranID? 'none' : '' }}
         variant="contained"
         onClick={() => {dispatch(uploadNewOrder()); dispatch(fetchOrders())}}
       >
         Додати
       </Button>
       <Button
-        sx={{ margin: "10px 0 10px 25px",width:100, display: editCheck }}
+        sx={{position: 'absolute', bottom: 65, margin: "10px 0 10px 25px",width:100, display: editCheck }}
         variant="contained"
         onClick={() => {dispatch(orderUpdate());dispatch( fetchOrders())}}
       >
@@ -57,7 +57,7 @@ export default function OrderCreateModal() {
       </Button>
       <Button
         color="error"
-        sx={{ margin: "10px 25px 10px 25px",width:100, display: editCheck }}
+        sx={{position: 'absolute', bottom: 10, margin: "10px 25px 10px 25px",width:100, display: editCheck }}
         variant="contained"
         onClick={() => {dispatch(openModal('orderDeleteModal'))}}
       >

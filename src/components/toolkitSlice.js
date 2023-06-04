@@ -22,6 +22,7 @@ const toolkitSlice = createSlice({
         clientModalState: false,
         orderDeleteModal: false,
         orderModalState: false,
+        orderMainPageSearch: false,
         orderPrintModalState: false,
         orderMaterialAdditionalState: false,
         orderMaterialAdditionalIndex: '',

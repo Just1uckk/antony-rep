@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import React, { useEffect, useMemo } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import NestedClientsListModal from "../components/clientList/ClientListModal";
 import { Box, TextField } from "@mui/material";
@@ -13,14 +13,19 @@ import OrderPrintModal from "../components/orderComp/OrderPrintModal";
 import { useState } from "react";
 import { auth } from "../components/Firebase";
 import OrderDeleteModal from "../components/orderComp/orderModalTabs/OrderDeleteModal";
+import Slide from '@mui/material/Slide';
 
 
 //проверка на вход в систему
 const MainPage = () => {
+  const checked = useSelector((state) => state.toolkit.orderMainPageSearch);
   const [searchValue, setSearchValue]= useState("")
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  useMemo(()=>{
+    setSearchValue("")
+  }, [checked])
   
   useEffect(() => {
     auth.onAuthStateChanged(function(user) {
@@ -44,7 +49,8 @@ const MainPage = () => {
         <BasicSpeedDial />
       </Box>
       <Box sx={{ zIndex: 2}}>
-        <Box sx={{position: "absolute" ,boxSizing: "border-box",p:1.25,backgroundColor:"white", width:"20%", mb:1.5, borderRadius:'4px', left:"270px", top: "10px"}}>
+        <Slide direction="down" in={checked} mountOnEnter unmountOnExit>
+        <Box sx={{position: "absolute" ,boxSizing: "border-box",p:1.25, paddingTop: '20px',backgroundColor:"white", width:"30%", mb:1.5, borderRadius:'0 0 4px 4px', left:"35%", top: "0px"}}>
         <TextField
         value={searchValue}
         fullWidth
@@ -54,6 +60,7 @@ const MainPage = () => {
         onChange={(e)=>{setSearchValue(e.target.value)}}
         />
         </Box>
+        </Slide>
         <CollapsibleTable search={searchValue} />
       </Box>
     </div>

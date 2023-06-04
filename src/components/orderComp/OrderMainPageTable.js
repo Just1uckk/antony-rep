@@ -138,7 +138,7 @@ export default function CollapsibleTable({ search }) {
 
   const totalOrders = useMemo(() => {
     const test = [...getOrdData]
-    const ordersData = test.sort((a,b) => (Number(a.ordID) > Number(b.ordID)) ? 1 : ((Number(b.ordID) > Number(a.ordID)) ? -1 : 0))
+    const ordersData = test.sort((b,a) => (Number(a.ordID) > Number(b.ordID)) ? 1 : ((Number(b.ordID) > Number(a.ordID)) ? -1 : 0))
     if(!ordersData){setPlugValue('noOrders')} else if (ordersData&&!ordersData.filter((obj) => obj.ordID.includes(search)).length) {setPlugValue('notFound')}else{setPlugValue('')}
     if (search) {
       return ordersData.filter((obj) => obj.ordID.includes(search));
