@@ -34,13 +34,12 @@ const OrderInfoTab = () => {
       dispatch(orderStateUpdate(data));
     }
   };
-
-  const lastOrderNum = useSelector((state) => state.globalOrders.orders).reduce(
+  const getOrders= useSelector((state) => state.globalOrders.orders)
+  const lastOrderNum = getOrders.length? getOrders.reduce(
     (prevObj, currObj) => {
-      console.log(prevObj, currObj);
       return Number(prevObj.ordID) > Number(currObj.ordID) ? prevObj : currObj;
     }
-  );
+  ): {ordID: 0};
 
   return (
     <div>

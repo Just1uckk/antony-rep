@@ -76,7 +76,7 @@ function Row(props) {
           {row.ordID}
         </TableCell>
         <TableCell align="right">
-          {foundClient ? foundClient.Name : ""}{" "}
+          {foundClient ? foundClient.Name : "Клієнта не знайдено."}{""}
           {foundClient ? foundClient.phoneNum : ""}
         </TableCell>
         <TableCell align="right">{dateConvert(row.dateStart)}</TableCell>
@@ -133,13 +133,12 @@ function Row(props) {
 
 export default function CollapsibleTable({ search }) {
   const getOrdData = useSelector((state) => state.globalOrders.orders)
-  
   const [plugValue, setPlugValue]=useState('')
 
   const totalOrders = useMemo(() => {
     const test = [...getOrdData]
     const ordersData = test.sort((b,a) => (Number(a.ordID) > Number(b.ordID)) ? 1 : ((Number(b.ordID) > Number(a.ordID)) ? -1 : 0))
-    if(!ordersData){setPlugValue('noOrders')} else if (ordersData&&!ordersData.filter((obj) => obj.ordID.includes(search)).length) {setPlugValue('notFound')}else{setPlugValue('')}
+    if(!getOrdData.length){setPlugValue('noOrders')} else if (ordersData&&!ordersData.filter((obj) => obj.ordID.includes(search)).length) {setPlugValue('notFound')}else{setPlugValue('')}
     if (search) {
       return ordersData.filter((obj) => obj.ordID.includes(search));
     }

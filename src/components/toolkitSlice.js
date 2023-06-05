@@ -23,6 +23,8 @@ const toolkitSlice = createSlice({
         orderDeleteModal: false,
         orderModalState: false,
         orderMainPageSearch: false,
+        clientsDeleteModal: false,
+        clientsCurrentDelete: "",
         orderPrintModalState: false,
         orderMaterialAdditionalState: false,
         orderMaterialAdditionalIndex: '',
@@ -74,7 +76,6 @@ const toolkitSlice = createSlice({
             const notify = (e) => toast(e);
             if(initialState.tempOrderInfo.ordID&&initialState.tempOrderInfo.dateStart&&initialState.tempOrderInfo.dateFinish&&initialState.tempOrderInfo.clID&&initialState.tempOrderInfo.status) {
             const ranID = nanoid()
-            console.log(initialState.tempOrderInfo.delivery, initialState.tempOrderInfo.installation)
             setDoc(doc(db, "orders", ranID), {
             ranID,
             ordID:initialState.tempOrderInfo.ordID,
@@ -120,7 +121,10 @@ const toolkitSlice = createSlice({
             } else if (typeof propName === 'object' && !Array.isArray(propName) && propName !== null && propName.name ==='clientAddModalState') {
                 initialState.clientAddModalName = propName.value
                 initialState[propName.name] = !initialState[propName.name]
-            }else if (typeof propName === 'object' && !Array.isArray(propName) && propName !== null) {
+            } else if (typeof propName === 'object' && !Array.isArray(propName) && propName !== null && propName.name ==='clientsDeleteModal') {
+                initialState[propName.name] = !initialState[propName.name]
+                initialState.clientsCurrentDelete = propName.value
+            } else if (typeof propName === 'object' && !Array.isArray(propName) && propName !== null) {
                 initialState[propName.name] = !initialState[propName.name]
                 initialState.orderPrint = propName.value
         } else {
@@ -148,6 +152,8 @@ const toolkitSlice = createSlice({
         },
         orderModalHandleClose(initialState) {
             Object.keys(initialState.tempOrderInfo).forEach(k => initialState.tempOrderInfo[k] = '')
+            initialState.tempOrderInfo.delivery = false
+            initialState.tempOrderInfo.installation = false
             initialState.tempMaterialInfo = [];            
         },
         orderModalEdit(initialState, {payload:order}){
@@ -192,6 +198,9 @@ const toolkitSlice = createSlice({
         },
         handleExitClients(initialState){
             initialState.clientsAllList = ''
+        },
+        clientsDelete(initialState){
+            deleteDoc(doc(db, "clients", initialState.clientsCurrentDelete));
         }
         },
         extraReducers: {
@@ -212,4 +221,4 @@ const toolkitSlice = createSlice({
 })
 
 export default toolkitSlice.reducer
-export const {orderDeleteMaterial, orderDeleteStatusUpdate, orderModalHandleClose, orderMaterialRemoveAddition, additionalWorkPush, openModal, orderMaterialAddNewObject, orderMaterialUpdate, orderStateUpdate, tempOrderSave, userLogined, uploadNewClient, getClientsData, uploadNewOrder, orderModalEdit, orderDelete, orderUpdate, orderSaveTable, handleExitClients} = toolkitSlice.actions
+export const {orderDeleteMaterial, orderDeleteStatusUpdate, orderModalHandleClose, orderMaterialRemoveAddition, additionalWorkPush, openModal, orderMaterialAddNewObject, orderMaterialUpdate, orderStateUpdate, tempOrderSave, userLogined, uploadNewClient, getClientsData, uploadNewOrder, orderModalEdit, orderDelete, orderUpdate, orderSaveTable, handleExitClients,clientsDelete} = toolkitSlice.actions

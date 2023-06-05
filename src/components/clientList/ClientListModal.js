@@ -4,7 +4,9 @@ import Modal from "@mui/material/Modal";
 import Button from "@mui/material/Button";
 import { useDispatch, useSelector } from "react-redux";
 import { openModal } from "../toolkitSlice";
-import { Divider, Grid, TextField } from "@mui/material";
+import { Divider, Grid, IconButton, TextField } from "@mui/material";
+import DeleteIcon from '@mui/icons-material/Delete';
+import ClientsDeleteModal from "./ClientsDeleteModal";
 
 
 const style = {
@@ -22,6 +24,7 @@ const style = {
 };
 
 const NestedClientsListModal = (state) => {
+  const [deleteClients, setDeleteClients] = useState(false)
   const [searchInput, setSearchInput] = useState("");
   const dispatch = useDispatch();
   const clientsList = useSelector(
@@ -32,6 +35,7 @@ const NestedClientsListModal = (state) => {
     : clientsList;
 
   const handleClose = () => {
+    setDeleteClients(false)
     dispatch(openModal("clientModalState"));
   };
 
@@ -111,6 +115,17 @@ const NestedClientsListModal = (state) => {
                       height: "30px",
                     }}
                   >
+                    <Grid 
+                    sx={{
+                      display: deleteClients ? "" : "none"
+                    }}
+                    item={true}>
+                       <IconButton
+                           onClick={() => {dispatch(openModal({name: 'clientsDeleteModal', value: data.id}))}}
+                        >
+                          <DeleteIcon />
+                        </IconButton>
+                    </Grid>
                     <Grid xs={0.01} item={true}></Grid>
                     <Grid
                     item={true}
@@ -134,8 +149,19 @@ const NestedClientsListModal = (state) => {
                 </Box>
               ))}
           </Box>
+          <Box
+          sx={{
+            display: clientsList.length?"none":"",
+            padding: "15px"
+        }}
+          >
+            <p>
+              Додайте першого клієнта.
+            </p>
+          </Box>
           <Divider sx={{ width: "100%" }} />
-          <Box sx={{height:"15px"}}></Box>
+          <Box sx={{height:"15px", display:"flex", justifyContent:"space-between"}}></Box>
+          <Box sx={{display:"flex", justifyContent:"space-between"}}>
           <Button
           variant="contained"
           onClick={() => {
@@ -144,6 +170,17 @@ const NestedClientsListModal = (state) => {
         >
           Додати Клієнта
         </Button>
+        <Button
+         color="error"
+          variant="contained"
+          onClick={() => {
+            setDeleteClients(!deleteClients)
+          }}
+        >
+          Видалити Клієнта
+        </Button>
+        </Box>
+        <ClientsDeleteModal/>
         </Box>
       </Modal>
     </div>

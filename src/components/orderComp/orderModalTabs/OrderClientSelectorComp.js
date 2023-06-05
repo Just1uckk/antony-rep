@@ -10,7 +10,7 @@ const OrderClientSelectorComp = () => {
   const dispatch = useDispatch();
   const clientsList = useSelector((state) => state.toolkit.clientsAllList);
   const clientsID = useSelector((state) => state.toolkit.tempOrderInfo.clID);
-  const foundClient = clientsID ? clientsList.find(obj => obj.id === clientsID): {};
+  const foundClient = clientsID ? clientsList.find(obj => obj.id === clientsID): {Name: "", discount: "", phoneNum: ""};
 
   const openUserModal = async () => {
     dispatch(fetchClients());
@@ -43,7 +43,7 @@ const updateStatus = (propName, value) => {
     <InfoBlock>
       <p>Ім’я клієнта</p>
       <Autocomplete
-      value={foundClient.Name?foundClient.Name:""}
+      value={foundClient.Name}
       onChange={(event, newValue) => {
         if (newValue && newValue.id) {
           dispatch(orderStateUpdate({propName: "clID", value: newValue.id}))
@@ -107,7 +107,7 @@ const updateStatus = (propName, value) => {
         size="small"
         id="filled-basic"
         variant="outlined"
-        value={foundClient.discount?foundClient.discount:""}
+        value={foundClient.discount}
         onChange={(e) => updateStatus("clDiscount", e.target.value)}
       />
     </InfoBlock>
@@ -118,7 +118,7 @@ const updateStatus = (propName, value) => {
         size="small"
         id="filled-basic"
         variant="outlined"
-        value={foundClient.phoneNum?foundClient.phoneNum:""}
+        value={foundClient.phoneNum}
         onChange={(e) => updateStatus("clPhoneNum", e.target.value)}
       />
     </InfoBlock>
