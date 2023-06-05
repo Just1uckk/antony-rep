@@ -21,6 +21,9 @@ import { statusDecode } from "../WorkDecoding";
 import { useMemo } from "react";
 import { useState } from "react";
 import pdfMake from "pdfmake/build/pdfmake";
+import moment from "moment";
+import dayjs from "dayjs";
+import "dayjs/locale/uk"
 
 function Row(props) {
   const dispatch = useDispatch();
@@ -42,8 +45,9 @@ function Row(props) {
   };
 
   const dateConvert = (date) => {
-    const dateSplit = date.split(".");
-    const correctDate = `${dateSplit[1]}.0${dateSplit[0]}.${dateSplit[2]}`;
+    require('dayjs/locale/uk')
+    const dateNew = moment(Number(date))
+    const correctDate = dayjs(dateNew).locale('uk').format( "dd DD MMM YYYY");
     return correctDate;
   };
 

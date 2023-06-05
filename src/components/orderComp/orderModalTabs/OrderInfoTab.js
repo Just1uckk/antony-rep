@@ -6,9 +6,6 @@ import {
   Select,
   Switch,
 } from "@mui/material";
-import dayjs from "dayjs";
-import "dayjs/locale/uk";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { TextField } from "@mui/material";
 import { Box } from "@mui/material";
 import React from "react";
@@ -18,6 +15,14 @@ import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers-pro";
 import { InfoBlock } from "../../StyledComponents";
 import OrderClientSelectorComp from "./OrderClientSelectorComp";
 import { ToastContainer } from "react-toastify";
+import moment from "moment";
+import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
+
+moment.updateLocale("uk", {
+  week: {
+    dow: 1
+  }
+});
 
 const OrderInfoTab = () => {
   const dispatch = useDispatch();
@@ -26,9 +31,7 @@ const OrderInfoTab = () => {
 
   const updateStatus = (propName, value) => {
     if (propName === "dateStart" || propName === "dateFinish") {
-      const date = `${value.$M + 1}.${value.$D}.${value.$y}`;
-      const data = { propName, value: date };
-      dispatch(orderStateUpdate(data));
+      dispatch(orderStateUpdate( {propName, value: Date.parse(value)}));
     } else {
       const data = { propName, value };
       dispatch(orderStateUpdate(data));
@@ -120,12 +123,13 @@ const OrderInfoTab = () => {
           <InfoBlock>
             <p>Дата початку</p>
             <LocalizationProvider
-              dateAdapter={AdapterDayjs}
-              adapterLocale={"uk"}
+              dateAdapter={AdapterMoment}
             >
               <DatePicker
+              format="DD/MM/YYYY"
+              dayOfWeekFormatter={(day) => `${day}`}
                 sx={{ width: "60%" }}
-                value={dayjs(tempOrdSave.dateStart)}
+                value={tempOrdSave.dateStart?moment(tempOrdSave.dateStart):""}
                 onChange={(newValue) => updateStatus("dateStart", newValue)}
               />
             </LocalizationProvider>
@@ -133,13 +137,13 @@ const OrderInfoTab = () => {
           <InfoBlock>
             <p>Дата закінчення</p>
             <LocalizationProvider
-              dateAdapter={AdapterDayjs}
-              adapterLocale={"uk"}
+              dateAdapter={AdapterMoment}
             >
               <DatePicker
-                placeholder
+              format="DD/MM/YYYY"
+              dayOfWeekFormatter={(day) => `${day}`}
                 sx={{ width: "60%" }}
-                value={dayjs(tempOrdSave.dateFinish)}
+                value={tempOrdSave.dateFinish?moment(tempOrdSave.dateFinish):""}
                 onChange={(newValue) => updateStatus("dateFinish", newValue)}
               />
             </LocalizationProvider>
