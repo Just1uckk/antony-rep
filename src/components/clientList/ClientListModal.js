@@ -142,7 +142,6 @@ const NestedClientsListModal = (state) => {
                     }}
                     item={true}>
                     <IconButton
-                       color="success"
                            onClick={() => {dispatch(openModal({name: "clientAddModalState", id:data.id}))}}
                         >
                           <SettingsIcon />
@@ -164,7 +163,7 @@ const NestedClientsListModal = (state) => {
                       {data.phoneNum}
                     </Grid>
                     <Grid item={true} xs={2} sx={{ alignSelf: "center", textAlign: "right" }}>
-                      {data.discount.toString()}
+                      {data.discount.toString()} {data.discount?"%":""}
                     </Grid>
                     <Grid item={true} xs={0.01}></Grid>
                   </Grid>

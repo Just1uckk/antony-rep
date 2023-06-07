@@ -25,7 +25,6 @@ import moment from "moment";
 import dayjs from "dayjs";
 import "dayjs/locale/uk"
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
-import ConstructionIcon from '@mui/icons-material/Construction';
 import HardwareIcon from '@mui/icons-material/Hardware';
 import CloseIcon from '@mui/icons-material/Close';
 
@@ -50,7 +49,7 @@ function Row(props) {
 
   const deliveryIcon = () => {
     if(row.delivery && row.installation){
-      return  <Box sx={{display: "flex"}}><LocalShippingIcon/> <HardwareIcon/></Box>
+      return  <Box sx={{display: "flex", justifyContent: "end"}}><LocalShippingIcon/> <HardwareIcon/></Box>
     } else if ( row.delivery ) {
       return <LocalShippingIcon/>
     } else if ( row.installation ) {
@@ -66,6 +65,12 @@ function Row(props) {
     const correctDate = dayjs(dateNew).locale('uk').format( "dd DD MMM YYYY");
     return correctDate;
   };
+
+  const isPaid = () => {
+    if(row.fullPrice - row.paid === 0){
+      return "Сплачено"
+    } else { return (row.fullPrice - row.paid)}
+  }
 
   const modalPrint = (row) => {
     const table = OrderPrintTableGen(row, foundClient);
@@ -106,7 +111,7 @@ function Row(props) {
         <TableCell align="right">{statusDecode[row.status - 1].prop}</TableCell>
         <TableCell align="right">{row.fullPrice}</TableCell>
         <TableCell align="right">{row.paid}</TableCell>
-        <TableCell align="right">{row.fullPrice - row.paid}</TableCell>
+        <TableCell align="right">{isPaid()}</TableCell>
         <TableCell align="right">{deliveryIcon()}</TableCell>
       </TableRow>
       <TableRow>

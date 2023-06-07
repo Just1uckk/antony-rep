@@ -42,7 +42,7 @@ const openSearch = () => {
 }
 
 const actions = [
-  { icon: <PersonAddIcon />, name: 'Додати Клієнта', onClick: openUserModal },
+  { icon: <PersonAddIcon />, name: 'Список Клієнтів', onClick: openUserModal },
   { icon: <LibraryAddIcon />, name: 'Додати замовлення', onClick: openOrderModal},
   { icon: <RefreshIcon />, name: 'Оновити базу', onClick: updateDB},
   { icon: <SearchIcon />, name: 'Пошук', onClick: openSearch},
