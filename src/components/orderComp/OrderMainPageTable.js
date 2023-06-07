@@ -24,6 +24,10 @@ import pdfMake from "pdfmake/build/pdfmake";
 import moment from "moment";
 import dayjs from "dayjs";
 import "dayjs/locale/uk"
+import LocalShippingIcon from '@mui/icons-material/LocalShipping';
+import ConstructionIcon from '@mui/icons-material/Construction';
+import HardwareIcon from '@mui/icons-material/Hardware';
+import CloseIcon from '@mui/icons-material/Close';
 
 function Row(props) {
   const dispatch = useDispatch();
@@ -43,6 +47,18 @@ function Row(props) {
       return "MistyRose";
     }
   };
+
+  const deliveryIcon = () => {
+    if(row.delivery && row.installation){
+      return  <Box sx={{display: "flex"}}><LocalShippingIcon/> <HardwareIcon/></Box>
+    } else if ( row.delivery ) {
+      return <LocalShippingIcon/>
+    } else if ( row.installation ) {
+      return <HardwareIcon/>
+    } else { 
+      return <CloseIcon/> 
+    }
+  }
 
   const dateConvert = (date) => {
     require('dayjs/locale/uk')
@@ -80,7 +96,9 @@ function Row(props) {
           {row.ordID}
         </TableCell>
         <TableCell align="right">
-          {foundClient ? foundClient.Name : "Клієнта не знайдено."}{""}
+          {foundClient ? foundClient.Name : "Клієнта не знайдено."}
+        </TableCell>
+        <TableCell align="right">
           {foundClient ? foundClient.phoneNum : ""}
         </TableCell>
         <TableCell align="right">{dateConvert(row.dateStart)}</TableCell>
@@ -89,6 +107,7 @@ function Row(props) {
         <TableCell align="right">{row.fullPrice}</TableCell>
         <TableCell align="right">{row.paid}</TableCell>
         <TableCell align="right">{row.fullPrice - row.paid}</TableCell>
+        <TableCell align="right">{deliveryIcon()}</TableCell>
       </TableRow>
       <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={12}>
@@ -106,6 +125,12 @@ function Row(props) {
                   Коментарі
                 </Typography>
                 {row.comments ? row.comments : "Нема коментарів"}
+              </Box>
+              <Box>
+              <Typography variant="h6" gutterBottom component="div">
+                  Доставка
+                </Typography>
+                {row.delivery ? row.adress : "Нема доставки"}
               </Box>
               <Box sx={{ display: "flex", alignItems: "flex-end" }}>
                 <IconButton
@@ -164,13 +189,15 @@ export default function CollapsibleTable({ search }) {
           <TableRow>
             <TableCell />
             <TableCell>№</TableCell>
-            <TableCell align="right">Ім'я та Номер Телефону Клієнта</TableCell>
+            <TableCell align="right">Ім'я Клієнта</TableCell>
+            <TableCell align="right">Номер Телефону</TableCell>
             <TableCell align="right">Дата Початку</TableCell>
             <TableCell align="right">Дата Завршення</TableCell>
             <TableCell align="right">Стан</TableCell>
             <TableCell align="right">Варість</TableCell>
             <TableCell align="right">Передплата</TableCell>
             <TableCell align="right">Залишок</TableCell>
+            <TableCell align="right">Монтаж</TableCell>
           </TableRow>
         </TableHead>
         <TableBody >

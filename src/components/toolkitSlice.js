@@ -21,6 +21,7 @@ const toolkitSlice = createSlice({
         clientAddModalName: '',
         clientModalState: false,
         orderDeleteModal: false,
+        clientEditIndex: "",
         orderModalState: false,
         orderMainPageSearch: false,
         clientsDeleteModal: false,
@@ -72,6 +73,15 @@ const toolkitSlice = createSlice({
                 phoneNum: cPhoneNum
             });
         },
+        uploadEditClient(initialState, {payload:data}){
+            deleteDoc(doc(db, "clients", data.id));
+            setDoc(doc(db, "clients", data.id), {
+                Name: data.Name,
+                discount: data.discount,
+                id: data.id,
+                phoneNum: data.phoneNum
+            });
+        },
         uploadNewOrder(initialState){ 
             const notify = (e) => toast(e);
             if(initialState.tempOrderInfo.ordID&&initialState.tempOrderInfo.dateStart&&initialState.tempOrderInfo.dateFinish&&initialState.tempOrderInfo.clID&&initialState.tempOrderInfo.status) {
@@ -119,6 +129,7 @@ const toolkitSlice = createSlice({
             initialState[propName.name] = !initialState[propName.name]
             initialState.orderMaterialAdditionalIndex = propName.index
             } else if (typeof propName === 'object' && !Array.isArray(propName) && propName !== null && propName.name ==='clientAddModalState') {
+                initialState.clientEditIndex = propName.id
                 initialState.clientAddModalName = propName.value
                 initialState[propName.name] = !initialState[propName.name]
             } else if (typeof propName === 'object' && !Array.isArray(propName) && propName !== null && propName.name ==='clientsDeleteModal') {
@@ -221,4 +232,4 @@ const toolkitSlice = createSlice({
 })
 
 export default toolkitSlice.reducer
-export const {orderDeleteMaterial, orderDeleteStatusUpdate, orderModalHandleClose, orderMaterialRemoveAddition, additionalWorkPush, openModal, orderMaterialAddNewObject, orderMaterialUpdate, orderStateUpdate, tempOrderSave, userLogined, uploadNewClient, getClientsData, uploadNewOrder, orderModalEdit, orderDelete, orderUpdate, orderSaveTable, handleExitClients,clientsDelete} = toolkitSlice.actions
+export const {orderDeleteMaterial, uploadEditClient, orderDeleteStatusUpdate, orderModalHandleClose, orderMaterialRemoveAddition, additionalWorkPush, openModal, orderMaterialAddNewObject, orderMaterialUpdate, orderStateUpdate, tempOrderSave, userLogined, uploadNewClient, getClientsData, uploadNewOrder, orderModalEdit, orderDelete, orderUpdate, orderSaveTable, handleExitClients,clientsDelete} = toolkitSlice.actions

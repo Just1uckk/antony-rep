@@ -1,14 +1,17 @@
 import pdfMake from "pdfmake/build/pdfmake";
 import pdfFont from "pdfmake/build/vfs_fonts"
 import { edgeDecode, materialDecode, sandblastingDecode, workDecode } from "../WorkDecoding";
+import moment from "moment";
+import dayjs from "dayjs";
 pdfMake.vfs = pdfFont.pdfMake.vfs
 
 export const OrderPrintTableGen = (row, foundClient) => {
     const dateConvert = (date) => {
-        const dateSplit = date.split(".")
-        const correctDate = `${dateSplit[1]}.0${dateSplit[0]}.${dateSplit[2]}`
-        return correctDate
-      }
+        require('dayjs/locale/uk')
+        const dateNew = moment(Number(date))
+        const correctDate = dayjs(dateNew).locale('uk').format( "dd DD MMM YYYY");
+        return correctDate;
+      };
 
       const drillingMap = (row, propName) => {
         const drillingCell = []
@@ -62,24 +65,60 @@ export const OrderPrintTableGen = (row, foundClient) => {
       return table
     }
     
-    const ordNumber = {text: `№: ${row.ordID}`}
-    const ordClient = {text: `Замовник: ${foundClient.Name}`}
-    const ordDates = {text: `Від: ${dateConvert(row.dateStart)}                                                           Дата Відгрузки: ${dateConvert(row.dateFinish)}`}
+    function tableHeader () {
+        const header = 
+      [
+          [{text: `№: ${row.ordID}`,fontSize: 10, bold: true},{text: `${row.delivery?"Доставка:":""} ${row.installation?row.adress:""}`,fontSize: 10}],
+          [{text: `Замовник: ${foundClient.Name}`,fontSize: 10},{text: `${row.installation?"Монтаж":""}`,fontSize: 10}],
+          [{text: `Від: ${dateConvert(row.dateStart)}`,fontSize: 10},{text: `Дата Відгрузки: ${dateConvert(row.dateFinish)}`,fontSize: 10, bold: true}],
+      ]
+        return header
+      }
 
     const order = []
 
-    order.push([{...ordNumber},{...ordClient},{...ordDates},{
+    order.push([{
         table: {
-            widths: [125, 30, 80, 30, 30, 30, 125],
-            body :  tableBody()
-        }
-    },{text:'\n'},{text:'\n'}]) 
-    order.push([{...ordNumber},{...ordClient},{...ordDates},{
-        table: {
-            widths: [125, 30, 80, 30, 30, 30, 125],
-            body :  tableBody()
-        }
-    }]) 
+            widths: [250, 250],
+            body :  tableHeader(),
+                },
+                layout: 'noBorders'
+            },
+        {
+            table: {
+                widths: [125, 30, 80, 30, 30, 30, 125],
+                body :  tableBody()
+            }
+        },{text:'\n'},{text:'\n'}]) 
+        order.push([{
+            table: {
+                widths: [250, 250],
+                body :  tableHeader(),
+                    },
+                    layout: 'noBorders'
+                },
+            {
+                table: {
+                    widths: [125, 30, 80, 30, 30, 30, 125],
+                    body :  tableBody()
+                }
+            }])
+            if(row.installation || row.delivery ){
+                        order.push([{text:'\n'},{text:'\n'},{
+                            table: {
+                                widths: [250, 250],
+                                body :  tableHeader(),
+                                    },
+                                    layout: 'noBorders'
+                                },
+                        {
+                            table: {
+                                widths: [125, 30, 80, 30, 30, 30, 125],
+                                body :  tableBody()
+                            }
+                        }])
+                    };
+        
 
 //additional orders for different jobs. TBI
 

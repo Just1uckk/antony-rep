@@ -3,7 +3,7 @@ import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import Button from "@mui/material/Button";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchClients, openModal } from "../toolkitSlice";
+import { fetchClients, openModal, uploadEditClient } from "../toolkitSlice";
 import { uploadNewClient } from "../toolkitSlice";
 import { nanoid } from "nanoid";
 import { TextField } from "@mui/material";
@@ -28,8 +28,11 @@ const style = {
 export function ClientAddModal() {
   const notify = (e) => toast(e);
 
+  const editClientId = useSelector((state) => state.toolkit.clientEditIndex)
+  const clientsList = useSelector((state) => state.toolkit.clientsAllList);
+
     const handleClose = () => {
-        dispatch(openModal({name: 'clientAddModalState', value: ''}));
+        dispatch(openModal({name: 'clientAddModalState',id:"", value: ''}));
         setclientsName('');setclientsNum('');setclientsDiscount('')
       };
 
@@ -38,6 +41,17 @@ export function ClientAddModal() {
     const [clientsName, setclientsName] = useState('');
     const [clientsNum, setclientsNum] = useState("");
     const [clientsDiscount, setclientsDiscount] = useState();
+
+    const setByID = useMemo(() => {
+      if(editClientId&&clientsList){
+        const foundClient = clientsList.find((obj) => obj.id === editClientId);
+        setclientsName(foundClient.Name)
+        setclientsNum(foundClient.phoneNum)
+        setclientsDiscount(foundClient.discount)
+          return
+      } else {
+          return
+      }},[editClientId])
 
     const discountSet = (value) => {
       if(value <= 100 && !isNaN(value)){
@@ -72,6 +86,25 @@ export function ClientAddModal() {
       if (clientsName && clientsNum && id) {
         handleClose();
         dispatch(uploadNewClient(newClient));
+        setclientsDiscount("");
+        setclientsName("");
+        setclientsNum("");
+      } else {
+        notify(`Поля мають бути заповнені`);
+      }
+      dispatch(fetchClients())
+    };
+
+    const groupEditInfo = async () => {
+      const newClient = {
+        Name: clientsName,
+        discount: clientsDiscount,
+        id: editClientId,
+        phoneNum: clientsNum,
+      };
+      if (clientsName && clientsNum) {
+        handleClose();
+        dispatch(uploadEditClient(newClient));
         setclientsDiscount("");
         setclientsName("");
         setclientsNum("");
@@ -121,12 +154,23 @@ export function ClientAddModal() {
               onChange={(e) => discountSet(e.target.value)}
             ></TextField>
             <Button
+             sx={{display: !editClientId?"":"none"}}
               variant="contained"
               onClick={() => {
                 groupClientInfo();
               }}
             >
               Додати Клієнта
+            </Button>
+            <Button
+            color="success"
+            sx={{display: editClientId?"":"none"}}
+              variant="contained"
+              onClick={() => {
+                groupEditInfo();
+              }}
+            >
+              Оновити Клієнта
             </Button>
             <ToastContainer/>
           </Box>

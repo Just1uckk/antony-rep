@@ -2,7 +2,7 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import { useDispatch, useSelector } from 'react-redux';
-import { openModal, orderDelete, orderModalHandleClose, orderUpdate, uploadNewOrder } from '../../toolkitSlice';
+import { openModal, orderModalHandleClose, orderUpdate, uploadNewOrder } from '../../toolkitSlice';
 import OrderTabs from '../OrderTabs';
 import { Button } from '@mui/material';
 import { fetchOrders } from '../../store/GloabalOrdersList';

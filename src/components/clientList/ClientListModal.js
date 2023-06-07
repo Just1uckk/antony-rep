@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import Button from "@mui/material/Button";
@@ -7,6 +7,7 @@ import { openModal } from "../toolkitSlice";
 import { Divider, Grid, IconButton, TextField } from "@mui/material";
 import DeleteIcon from '@mui/icons-material/Delete';
 import ClientsDeleteModal from "./ClientsDeleteModal";
+import SettingsIcon from '@mui/icons-material/Settings';
 
 
 const style = {
@@ -25,14 +26,19 @@ const style = {
 
 const NestedClientsListModal = (state) => {
   const [deleteClients, setDeleteClients] = useState(false)
-  const [searchInput, setSearchInput] = useState("");
+  const [searchInput, setSearchInput] = useState('');
   const dispatch = useDispatch();
   const clientsList = useSelector(
     (state) => state.toolkit.clientsAllList
   );
-  const searchList = searchInput
-    ? clientsList.filter((data) => data === searchInput)
-    : clientsList;
+  const searchTest = useMemo(() => {
+    const nameSearch = clientsList.filter((obj) => obj.Name.includes(searchInput));
+    const numberSearch = clientsList.filter((obj) => obj.phoneNum.includes(searchInput));
+    const found = nameSearch.concat(numberSearch)
+    if(searchInput){
+      return found
+    } else {return clientsList}
+  },[searchInput, clientsList])
 
   const handleClose = () => {
     setDeleteClients(false)
@@ -75,6 +81,9 @@ const NestedClientsListModal = (state) => {
                       fontStyle:"italic",
                     }}
                   >
+                    <Grid xs={1} sx={{
+                      display: deleteClients ? "" : "none"
+                    }} item={true}></Grid>
                     <Grid xs={0.01} item={true}></Grid>
                     <Grid
                     item={true}
@@ -105,8 +114,8 @@ const NestedClientsListModal = (state) => {
           <Box
             sx={{ overflowY: "scroll", overflowX: "hidden", maxHeight: "60vh"}}
           >
-            {searchList &&
-              searchList.map((data, index) => (
+            {searchTest &&
+              searchTest.map((data, index) => (
                 <Box key={index}>
                   <Grid
                     container
@@ -121,11 +130,24 @@ const NestedClientsListModal = (state) => {
                     }}
                     item={true}>
                        <IconButton
+                       color="error"
                            onClick={() => {dispatch(openModal({name: 'clientsDeleteModal', value: data.id}))}}
                         >
                           <DeleteIcon />
                         </IconButton>
                     </Grid>
+                    <Grid 
+                    sx={{
+                      display: deleteClients ? "" : "none"
+                    }}
+                    item={true}>
+                    <IconButton
+                       color="success"
+                           onClick={() => {dispatch(openModal({name: "clientAddModalState", id:data.id}))}}
+                        >
+                          <SettingsIcon />
+                        </IconButton>
+                        </Grid>
                     <Grid xs={0.01} item={true}></Grid>
                     <Grid
                     item={true}
@@ -141,7 +163,7 @@ const NestedClientsListModal = (state) => {
                     <Grid item={true} xs={4} sx={{ alignSelf: "center" }}>
                       {data.phoneNum}
                     </Grid>
-                    <Grid item={true} xs={2} sx={{ textAlign: "right" }}>
+                    <Grid item={true} xs={2} sx={{ alignSelf: "center", textAlign: "right" }}>
                       {data.discount.toString()}
                     </Grid>
                     <Grid item={true} xs={0.01}></Grid>
@@ -149,6 +171,9 @@ const NestedClientsListModal = (state) => {
                 </Box>
               ))}
           </Box>
+          <Box sx={{paddingBottom:"10px",display: clientsList.length&&!searchTest.length?"":"none"}}>
+                    <p>Не було знайдено клієнтів по запиту.</p>
+                  </Box>
           <Box
           sx={{
             display: clientsList.length?"none":"",
@@ -170,15 +195,14 @@ const NestedClientsListModal = (state) => {
         >
           Додати Клієнта
         </Button>
-        <Button
-         color="error"
+        <IconButton
           variant="contained"
           onClick={() => {
             setDeleteClients(!deleteClients)
           }}
         >
-          Видалити Клієнта
-        </Button>
+         <SettingsIcon/>
+        </IconButton>
         </Box>
         <ClientsDeleteModal/>
         </Box>

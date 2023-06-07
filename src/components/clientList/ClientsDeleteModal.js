@@ -39,7 +39,7 @@ export default function ClientsDeleteModal () {
             color="error"
             size='small'
             variant="contained"
-            onClick={() => {dispatch(clientsDelete()); dispatch(fetchClients()); dispatch(openModal('clientsDeleteModal'))}}
+            onClick={() => {dispatch(clientsDelete()); dispatch(openModal('clientsDeleteModal')); dispatch(fetchClients())}}
             >Так</Button>
             <Button
             size='small'
