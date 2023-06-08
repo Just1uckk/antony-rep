@@ -201,6 +201,8 @@ const toolkitSlice = createSlice({
                 })
                 });
                 Object.keys(initialState.tempOrderInfo).forEach(k => initialState.tempOrderInfo[k] = '')
+                initialState.tempOrderInfo.delivery = false
+            initialState.tempOrderInfo.installation = false
                 initialState.tempMaterialInfo = [];      
                 initialState.orderModalState = !initialState.orderModalState} else {notify(`Поля мають бути заповнені`)}
         },

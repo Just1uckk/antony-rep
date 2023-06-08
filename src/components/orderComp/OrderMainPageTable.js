@@ -67,9 +67,9 @@ function Row(props) {
   };
 
   const isPaid = () => {
-    if(row.fullPrice - row.paid === 0){
+    if(row.fullPrice&& row.paid&&row.fullPrice - row.paid === 0){
       return "Сплачено"
-    } else { return (row.fullPrice - row.paid)}
+    } else if (row.fullPrice&& row.paid) { return (row.fullPrice - row.paid)} else {return ""}
   }
 
   const modalPrint = (row) => {
@@ -104,7 +104,7 @@ function Row(props) {
           {foundClient ? foundClient.Name : "Клієнта не знайдено."}
         </TableCell>
         <TableCell align="right">
-          {foundClient ? foundClient.phoneNum : ""}
+          {`+380 ${foundClient ? foundClient.phoneNum : ""}`}
         </TableCell>
         <TableCell align="right">{dateConvert(row.dateStart)}</TableCell>
         <TableCell align="right">{dateConvert(row.dateFinish)}</TableCell>
@@ -129,13 +129,13 @@ function Row(props) {
                 <Typography variant="h6" gutterBottom component="div">
                   Коментарі
                 </Typography>
-                {row.comments ? row.comments : "Нема коментарів"}
+                {row.comments ? row.comments : "Немає коментарів"}
               </Box>
               <Box>
               <Typography variant="h6" gutterBottom component="div">
                   Доставка
                 </Typography>
-                {row.delivery ? row.adress : "Нема доставки"}
+                {row.delivery ? row.adress : "Немає доставки"}
               </Box>
               <Box sx={{ display: "flex", alignItems: "flex-end" }}>
                 <IconButton
