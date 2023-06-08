@@ -3,6 +3,7 @@ import { deleteDoc, doc, setDoc } from "firebase/firestore";
 import getClients, { db } from "./Firebase";
 import { nanoid } from "nanoid";
 import { toast } from "react-toastify";
+import { fetchOrders } from "./store/GloabalOrdersList";
 
 export const fetchClients = createAsyncThunk(
     'toolkit/fetchClients',
@@ -176,7 +177,10 @@ const toolkitSlice = createSlice({
             deleteDoc(doc(db, "orders", initialState.tempOrderInfo.ranID));
             Object.keys(initialState.tempOrderInfo).forEach(k => initialState.tempOrderInfo[k] = '');
             initialState.tempMaterialInfo = [];   
-            initialState.orderModalState = !initialState.orderModalState
+            initialState.orderModalState = !initialState.orderModalState;
+            initialState.tempOrderInfo.delivery = false
+            initialState.tempOrderInfo.installation = false
+            fetchOrders()
         },
         orderUpdate(initialState){
             const notify = (e) => toast(e);

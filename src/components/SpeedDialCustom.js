@@ -28,6 +28,7 @@ const openOrderModal = async () => {
     dispatch(openModal('orderModalState'))
 }
 const updateDB = () => {
+  dispatch(handleExitOrders())
   dispatch(fetchClients());
   dispatch(fetchOrders());
 }

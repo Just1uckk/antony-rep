@@ -2,7 +2,7 @@ import React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { openModal, orderDelete } from '../../toolkitSlice';
 import { Box, Button, Modal } from '@mui/material';
-import { fetchOrders } from '../../store/GloabalOrdersList';
+import { fetchOrders, handleExitOrders } from '../../store/GloabalOrdersList';
 
 const style = {
     boxSizing: 'borderBox',
@@ -24,6 +24,13 @@ export default function OrderDeleteModal () {
     const dispatch = useDispatch();
     const handleClose = () => {
         dispatch(openModal('orderDeleteModal'))};
+
+        const handleDelete = async () => {
+         await dispatch(orderDelete());
+          dispatch(fetchOrders()); 
+          dispatch(openModal('orderDeleteModal'))
+      }
+
   return (
     <React.Fragment>
       <Modal
@@ -39,7 +46,7 @@ export default function OrderDeleteModal () {
             color="error"
             size='small'
             variant="contained"
-            onClick={() => {dispatch(orderDelete()); dispatch(fetchOrders()); dispatch(openModal('orderDeleteModal'))}}
+            onClick={() => {handleDelete()}}
             >Так</Button>
             <Button
             size='small'
