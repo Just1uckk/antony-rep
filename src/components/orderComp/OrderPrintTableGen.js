@@ -45,7 +45,7 @@ export const OrderPrintTableGen = (row, foundClient) => {
 
       const temperingSearch = (row) => {
         const tempering = row.painting.find(obj => obj.work ===  6)
-        return(tempering?{text:"Так", fontSize: 10}:{text:"Ні", fontSize: 10})
+        return(tempering?{text:"ТАК", fontSize: 10, bold: true}:{text:"", fontSize: 10})
       }
 
       function tableBody () {

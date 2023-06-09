@@ -37,10 +37,11 @@ const toolkitSlice = createSlice({
             ranID:'',
             ordID:'',
             clID:'',
-            status:'',
+            status: 1,
             dateStart: '',
             dateFinish: '',
             fullPrice:'',
+            fullPaid:false,
             paid:'',
             installation:false,
             delivery:false,
@@ -98,6 +99,7 @@ const toolkitSlice = createSlice({
             status:initialState.tempOrderInfo.status,
             installation:initialState.tempOrderInfo.installation,
             delivery:initialState.tempOrderInfo.delivery,
+            fullPaid:initialState.tempOrderInfo.fullPaid,
             adress:initialState.tempOrderInfo.adress,
             comments:initialState.tempOrderInfo.comments,
             material: initialState.tempMaterialInfo.filter((element)=>{
@@ -107,7 +109,9 @@ const toolkitSlice = createSlice({
             });
             Object.keys(initialState.tempOrderInfo).forEach(k => initialState.tempOrderInfo[k] = '')
             initialState.tempOrderInfo.delivery = false
+            initialState.tempOrderInfo.status = 1
             initialState.tempOrderInfo.installation = false
+            initialState.tempOrderInfo.fullPaid = false
             initialState.tempMaterialInfo = [];      
             initialState.orderModalState = !initialState.orderModalState
         } else {notify(`Поля мають бути заповнені`)}
@@ -165,7 +169,9 @@ const toolkitSlice = createSlice({
         orderModalHandleClose(initialState) {
             Object.keys(initialState.tempOrderInfo).forEach(k => initialState.tempOrderInfo[k] = '')
             initialState.tempOrderInfo.delivery = false
+            initialState.tempOrderInfo.status = 1
             initialState.tempOrderInfo.installation = false
+            initialState.tempOrderInfo.fullPaid = false
             initialState.tempMaterialInfo = [];            
         },
         orderModalEdit(initialState, {payload:order}){
@@ -178,8 +184,10 @@ const toolkitSlice = createSlice({
             Object.keys(initialState.tempOrderInfo).forEach(k => initialState.tempOrderInfo[k] = '');
             initialState.tempMaterialInfo = [];   
             initialState.orderModalState = !initialState.orderModalState;
+            initialState.tempOrderInfo.status = 1
             initialState.tempOrderInfo.delivery = false
             initialState.tempOrderInfo.installation = false
+            initialState.tempOrderInfo.fullPaid = false
             fetchOrders()
         },
         orderUpdate(initialState){
@@ -195,6 +203,7 @@ const toolkitSlice = createSlice({
                 fullPrice:initialState.tempOrderInfo.fullPrice,
                 paid:initialState.tempOrderInfo.paid,
                 status:initialState.tempOrderInfo.status,
+                fullPaid:initialState.tempOrderInfo.fullPaid,
                 installation:initialState.tempOrderInfo.installation,
                 delivery:initialState.tempOrderInfo.delivery,
                 adress:initialState.tempOrderInfo.adress,
@@ -207,6 +216,8 @@ const toolkitSlice = createSlice({
                 Object.keys(initialState.tempOrderInfo).forEach(k => initialState.tempOrderInfo[k] = '')
                 initialState.tempOrderInfo.delivery = false
             initialState.tempOrderInfo.installation = false
+            initialState.tempOrderInfo.fullPaid = false
+            initialState.tempOrderInfo.status = 1
                 initialState.tempMaterialInfo = [];      
                 initialState.orderModalState = !initialState.orderModalState} else {notify(`Поля мають бути заповнені`)}
         },

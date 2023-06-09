@@ -195,6 +195,15 @@ const OrderInfoTab = () => {
               value={[tempOrdSave.fullPrice] - [tempOrdSave.paid]}
             />
           </InfoBlock>
+          <InfoBlock>
+          <p>Повна оплата</p>
+              <Switch
+                checked={tempOrdSave.fullPaid}
+                onChange={() =>
+                  updateStatus("fullPaid", !tempOrdSave.fullPaid)
+                }
+              />
+          </InfoBlock>
         </Box>
         <Divider sx={{ width: "100%" }} />
         <Box

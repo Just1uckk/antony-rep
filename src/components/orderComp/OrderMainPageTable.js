@@ -69,6 +69,8 @@ function Row(props) {
   const isPaid = () => {
     if(row.fullPrice&& row.paid&&row.fullPrice - row.paid === 0){
       return "Сплачено"
+    } else if(row.fullPaid) {
+      return "Сплачено"
     } else if (row.fullPrice&& row.paid) { return (row.fullPrice - row.paid)} else {return ""}
   }
 
