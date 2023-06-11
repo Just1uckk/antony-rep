@@ -30,8 +30,10 @@ const toolkitSlice = createSlice({
         orderPrintModalState: false,
         orderMaterialAdditionalState: false,
         orderMaterialAdditionalIndex: '',
+        orderSelectClient: false,
         orderPrintTable:"",
         clientsAllList: [],
+        makeThemRed: false,
         orderMaterialDelete: false,
         tempOrderInfo: {
             ranID:'',
@@ -114,7 +116,11 @@ const toolkitSlice = createSlice({
             initialState.tempOrderInfo.fullPaid = false
             initialState.tempMaterialInfo = [];      
             initialState.orderModalState = !initialState.orderModalState
-        } else {notify(`Поля мають бути заповнені`)}
+            initialState.makeThemRed = false
+        } else {
+            notify(`Поля мають бути заповнені`); 
+            initialState.makeThemRed = true
+        }
         },
         additionalWorkPush(initialState, {payload:data}) {
             if(data.work === 1) {
@@ -130,6 +136,9 @@ const toolkitSlice = createSlice({
             if(typeof propName === 'object' && !Array.isArray(propName) && propName !== null && propName.name ==='orderMaterialAdditionalState'){
             initialState[propName.name] = !initialState[propName.name]
             initialState.orderMaterialAdditionalIndex = propName.index
+            } else if(typeof propName === 'object' && !Array.isArray(propName) && propName !== null && propName.name ==='clientModalState'){
+            initialState[propName.name] = !initialState[propName.name]
+            initialState.orderSelectClient = propName.value
             } else if(typeof propName === 'object' && !Array.isArray(propName) && propName !== null && propName.name ==='orderPrintModalState'){
             initialState[propName.name] = !initialState[propName.name]
             initialState.orderMaterialAdditionalIndex = propName.index
@@ -218,8 +227,12 @@ const toolkitSlice = createSlice({
             initialState.tempOrderInfo.installation = false
             initialState.tempOrderInfo.fullPaid = false
             initialState.tempOrderInfo.status = 1
-                initialState.tempMaterialInfo = [];      
-                initialState.orderModalState = !initialState.orderModalState} else {notify(`Поля мають бути заповнені`)}
+                initialState.tempMaterialInfo = []; 
+                initialState.makeThemRed = false     
+                initialState.orderModalState = !initialState.orderModalState} else {
+                    notify(`Поля мають бути заповнені`)
+                    initialState.makeThemRed = true
+                }
         },
         orderSaveTable(initialState, {payload:table}){
             initialState.orderPrintTable = table

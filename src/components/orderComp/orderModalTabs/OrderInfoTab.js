@@ -37,6 +37,7 @@ const OrderInfoTab = () => {
       dispatch(orderStateUpdate(data));
     }
   };
+  const lightUpErrors= useSelector((state) => state.toolkit.makeThemRed)
   const getOrders= useSelector((state) => state.globalOrders.orders)
   const lastOrderNum = getOrders.length? getOrders.reduce(
     (prevObj, currObj) => {
@@ -65,6 +66,7 @@ const OrderInfoTab = () => {
           <InfoBlock>
             <p>Номер Замовлення</p>
             <TextField
+            error = {lightUpErrors}
               sx={{ width: "60%" }}
               size="small"
               label={`Наступний номер ${Number(lastOrderNum.ordID) + 1}`}
@@ -89,6 +91,7 @@ const OrderInfoTab = () => {
                 Оберіть стан
               </InputLabel>
               <Select
+              error = {lightUpErrors}
                 labelId="statusLabel"
                 size="small"
                 label="Стан"
@@ -126,6 +129,7 @@ const OrderInfoTab = () => {
               dateAdapter={AdapterMoment}
             >
               <DatePicker
+              error = {lightUpErrors}
               format="DD/MM/YYYY"
               dayOfWeekFormatter={(day) => `${day}`}
                 sx={{ width: "60%" }}
@@ -140,6 +144,7 @@ const OrderInfoTab = () => {
               dateAdapter={AdapterMoment}
             >
               <DatePicker
+              error = {lightUpErrors}
               format="DD/MM/YYYY"
               dayOfWeekFormatter={(day) => `${day}`}
                 sx={{ width: "60%" }}

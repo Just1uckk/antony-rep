@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import NestedClientsListModal from "../components/clientList/ClientListModal";
 import { Box, TextField } from "@mui/material";
-import BasicSpeedDial from "../components/SpeedDialCustom";
 import OrderCreateModal from "../components/orderComp/orderModalTabs/OrderCreateModal";
 import CollapsibleTable from "../components/orderComp/OrderMainPageTable";
 import { ClientAddModal } from "../components/clientList/ClientAddModal";
@@ -14,6 +13,7 @@ import { useState } from "react";
 import { auth } from "../components/Firebase";
 import OrderDeleteModal from "../components/orderComp/orderModalTabs/OrderDeleteModal";
 import Slide from '@mui/material/Slide';
+import ButtonGroupMainPage from "../components/ButtonGroupMainPage";
 
 
 //проверка на вход в систему
@@ -46,7 +46,7 @@ const MainPage = () => {
         <ClientAddModal />
         <OrderCreateModal />
         <OrderPrintModal />
-        <BasicSpeedDial />
+         <ButtonGroupMainPage/>
       </Box>
       <Box sx={{ zIndex: 2}}>
         <Slide direction="down" in={checked} mountOnEnter unmountOnExit>

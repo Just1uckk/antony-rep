@@ -1,34 +1,21 @@
 import React from 'react'
-import { Autocomplete, Box, Button, TextField, createFilterOptions } from "@mui/material";
+import { Box, Button, TextField} from "@mui/material";
 import { InfoBlock } from '../../StyledComponents';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchClients, openModal, orderStateUpdate } from '../../toolkitSlice';
+import { fetchClients, openModal } from '../../toolkitSlice';
 
-const filter = createFilterOptions();
 
 const OrderClientSelectorComp = () => {
   const dispatch = useDispatch();
+  const lightUpErrors= useSelector((state) => state.toolkit.makeThemRed)
   const clientsList = useSelector((state) => state.toolkit.clientsAllList);
   const clientsID = useSelector((state) => state.toolkit.tempOrderInfo.clID);
   const foundClient = clientsID ? clientsList.find(obj => obj.id === clientsID): {Name: "", discount: "", phoneNum: ""};
 
   const openUserModal = async () => {
     dispatch(fetchClients());
-    dispatch(openModal('clientModalState'))
+    dispatch(openModal({name: 'clientModalState', value: true}))
 }
-
-const updateStatus = (propName, value) => {
-  if (propName === 'dateStart' || propName=== 'dateFinish') {
-    const data = { propName, value: value.toString() };
-    dispatch(orderStateUpdate(data));
-  } else {
-    const data = { propName, value };
-    dispatch(orderStateUpdate(data));
-  }
-};
-
-
-// const [value, setValue] = React.useState(null);
 
   return (
     <Box
@@ -42,95 +29,48 @@ const updateStatus = (propName, value) => {
   >
     <InfoBlock>
       <p>Ім’я клієнта</p>
-      <Autocomplete
-      value={foundClient.Name}
-      onChange={(event, newValue) => {
-        if (newValue && newValue.id) {
-          dispatch(orderStateUpdate({propName: "clID", value: newValue.id}))
-        }
-        if (newValue === null) {
-          dispatch(orderStateUpdate({propName: "clID", value: ""}))
-        }
-        if (typeof newValue === 'string') {
-          // setValue({
-          //   Name: newValue,
-          // });
-        } else if (newValue && newValue.inputValue) {
-          dispatch(openModal({name: 'clientAddModalState', value: newValue.inputValue}))
-        } else {
-          // setValue(newValue);
-        }
-      }}
-      // options - list of options, params - value from input field
-      filterOptions={(options, params) => {
-        const filtered = filter(options, params);
-        const { inputValue } = params;
-        // Suggest the creation of a new value
-        const isExisting = options.some((option) => inputValue === option.Name);
-        if (inputValue !== '' && !isExisting) {
-          filtered.push({
-            inputValue,
-            Name: `Add "${inputValue}"`,
-          });
-        }
-        return filtered;
-      }}
-      options={clientsList}
-      getOptionLabel={(option) => {
-        // Value selected with enter, right from the input
-        if (typeof option === 'string') {
-          return option;
-        }
-        // Add "xxx" option created dynamically
-        if (option.inputValue) {
-          return option.inputValue;
-        }
-        // Regular option
-        return option.Name;
-      }}
-      renderOption={(props, option) => <li {...props}>{option.Name}</li>}
-      sx={{ width: "60%" }}
-      freeSolo
-      renderInput={(params) => (
-        <TextField {...params} 
+      <TextField disabled
+      error = {lightUpErrors}
+        sx={{ width: "60%" }}
         size="small"
         id="filled-basic"
         variant="outlined"
-        />
-      )}
-    />
+        value={foundClient.Name}
+      />
     </InfoBlock>
     <InfoBlock>
       <p>Скидка, %</p>
       <TextField disabled
+      error = {lightUpErrors}
         sx={{ width: "60%" }}
         size="small"
         id="filled-basic"
         variant="outlined"
         value={foundClient.discount}
-        onChange={(e) => updateStatus("clDiscount", e.target.value)}
       />
     </InfoBlock>
     <InfoBlock>
       <p>Телефон</p>
-      <TextField disabled
+      <TextField 
+      error = {lightUpErrors}
+      disabled 
         sx={{ width: "60%" }}
         size="small"
         id="filled-basic"
         variant="outlined"
         value={foundClient.phoneNum}
-        onChange={(e) => updateStatus("clPhoneNum", e.target.value)}
       />
     </InfoBlock>
     <InfoBlock 
     style={{display:"flex", justifyContent:"end"}}
     >
       <Button
+      color={lightUpErrors?"error":'primary'}
       size="small"
-      variant="outlined"
+      variant="contained"
       onClick={()=>{openUserModal()}}
       >
-        Список клієнтів
+        Обрати Клієнта
       </Button>
     </InfoBlock>
   </Box>

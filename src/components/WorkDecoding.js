@@ -9,6 +9,7 @@ export const workDecode = [
     {value: 8, prop: 'Поклійка Оракала'},
     {value: 9, prop: 'Поклійка Броні'},
     {value: 10, prop: 'Виріз на Полотні'},
+    {value: 11, prop: 'Грунт після Уф'},
 ];
 
 export const edgeDecode = [

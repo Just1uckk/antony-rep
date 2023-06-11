@@ -6,6 +6,7 @@ import { additionalWorkPush, openModal } from "../../toolkitSlice";
 import { Button, FormControl, InputLabel, MenuItem, Select, TextField } from "@mui/material";
 import { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
+import { sandblastingDecode, workDecode } from "../../WorkDecoding";
 
 const style = {
   position: "absolute",
@@ -88,16 +89,9 @@ setWork('')
               setValueTwo("");
             }}
           >
-            <MenuItem value={1}>Свердлення</MenuItem>
-            <MenuItem value={10}>Виріз на Полотні</MenuItem>
-            <MenuItem value={2}>Уф.Друк</MenuItem>
-            <MenuItem value={3}>Фарбування</MenuItem>
-            <MenuItem value={4}>Подвійне Фарбування</MenuItem>
-            <MenuItem value={5}>Піскуоструй</MenuItem>
-            <MenuItem value={6}>Гартування</MenuItem>
-            <MenuItem value={7}>Порізка Лазером</MenuItem>
-            <MenuItem value={8}>Поклійка Оракала</MenuItem>
-            <MenuItem value={9}>Поклійка Броні</MenuItem>
+            {workDecode.map((work, index) => (
+              <MenuItem key={index} value={work.value}>{work.prop}</MenuItem>
+            ))}
           </Select>
           </FormControl>
           <FormControl variant="standard" fullWidth sx={{paddingBottom:"10px",display: [work === 1 ? "" : "none"] }}>
@@ -172,11 +166,9 @@ setWork('')
               setValueOne(e.target.value);
             }}
           >
-            <MenuItem value={1}>Повний Фоновий</MenuItem>
-            <MenuItem value={2}>3/4 Фоновий</MenuItem>
-            <MenuItem value={3}>Половина Фоновий</MenuItem>
-            <MenuItem value={4}>1/4 Фоновий</MenuItem>
-            <MenuItem value={5}>Фігурний</MenuItem>
+            {sandblastingDecode.map((work, index) => (
+              <MenuItem key={index} value={work.value}>{work.prop}</MenuItem>
+            ))}
           </Select>
           </FormControl>
           <Button
