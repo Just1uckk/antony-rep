@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import Button from "@mui/material/Button";
@@ -42,16 +42,14 @@ export function ClientAddModal() {
     const [clientsNum, setclientsNum] = useState("");
     const [clientsDiscount, setclientsDiscount] = useState();
 
-    const setByID = useMemo(() => {
+    useEffect(() => {
       if(editClientId&&clientsList){
         const foundClient = clientsList.find((obj) => obj.id === editClientId);
         setclientsName(foundClient.Name)
         setclientsNum(foundClient.phoneNum)
         setclientsDiscount(foundClient.discount)
-          return
-      } else {
-          return
-      }},[editClientId])
+      }
+    },[editClientId, clientsList])
 
     const discountSet = (value) => {
       if(value <= 100 && !isNaN(value)){
@@ -67,13 +65,13 @@ export function ClientAddModal() {
       return
     }
 
-      const test = useMemo(() => {
+      useEffect(() => {
         if(setName && !clientsName){
             setclientsName(setName)
             return setName
         } else {
             return clientsName
-        }},[setName])
+        }},[setName, clientsName])
 
     const groupClientInfo = async () => {
       const id = await nanoid();
