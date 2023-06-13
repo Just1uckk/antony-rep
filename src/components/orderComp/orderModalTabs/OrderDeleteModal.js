@@ -2,7 +2,7 @@ import React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { openModal, orderDelete } from '../../toolkitSlice';
 import { Box, Button, Modal } from '@mui/material';
-import { fetchOrders, handleExitOrders } from '../../store/GloabalOrdersList';
+import { fetchOrders } from '../../store/GloabalOrdersList';
 
 const style = {
     boxSizing: 'borderBox',
@@ -10,8 +10,6 @@ const style = {
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    // minWidth: '80vw',
-    // minHeight: '50vh',
     width: "auto",
     height: 'auto',
     bgcolor: 'background.paper',
