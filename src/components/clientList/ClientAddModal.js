@@ -68,9 +68,6 @@ export function ClientAddModal() {
       useEffect(() => {
         if(setName && !clientsName){
             setclientsName(setName)
-            return setName
-        } else {
-            return clientsName
         }},[setName, clientsName])
 
     const groupClientInfo = async () => {
