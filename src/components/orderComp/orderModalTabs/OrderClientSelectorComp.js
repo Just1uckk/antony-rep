@@ -39,7 +39,7 @@ const OrderClientSelectorComp = () => {
       />
     </InfoBlock>
     <InfoBlock>
-      <p>Скидка, %</p>
+      <p>Знижка, %</p>
       <TextField disabled
       error = {lightUpErrors}
         sx={{ width: "60%" }}

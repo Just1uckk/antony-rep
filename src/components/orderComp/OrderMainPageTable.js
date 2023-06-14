@@ -24,9 +24,6 @@ import pdfMake from "pdfmake/build/pdfmake";
 import moment from "moment";
 import dayjs from "dayjs";
 import "dayjs/locale/uk"
-import LocalShippingIcon from '@mui/icons-material/LocalShipping';
-import HardwareIcon from '@mui/icons-material/Hardware';
-import CloseIcon from '@mui/icons-material/Close';
 import { Tooltip } from "@mui/material";
 
 function Row(props) {
@@ -48,23 +45,10 @@ function Row(props) {
     }
   };
 
-  const deliveryIcon = () => {
-    if(row.delivery && row.installation){
-      return  <Box sx={{display: "flex", justifyContent: "end"}}><LocalShippingIcon/> <HardwareIcon/></Box>
-    } else if ( row.delivery ) {
-      return <LocalShippingIcon/>
-    } else if ( row.installation ) {
-      return <HardwareIcon/>
-    } else { 
-      return <CloseIcon/> 
-    }
-  }
-
   const dateConvert = (date) => {
     require('dayjs/locale/uk')
     const dateNew = moment(Number(date))
-    // "DD.MM.YYYY"
-    const correctDate = dayjs(dateNew).locale('uk').format( "dd DD MMM YYYY");
+    const correctDate = dayjs(dateNew).locale('uk').format( "DD.MM.YYYY");
     return correctDate;
   };
 
@@ -88,9 +72,7 @@ function Row(props) {
 
   return (
     <React.Fragment>
-      <TableRow
-        sx={{ "& > *": { borderBottom: "unset" }, backgroundColor: rowColor }}
-      >
+      <TableRow sx={{ "& > *": { borderBottom: "unset" }, backgroundColor: rowColor }}>
         <TableCell>
           <IconButton
             aria-label="expand row"
@@ -100,23 +82,18 @@ function Row(props) {
             {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
           </IconButton>
         </TableCell>
-        <TableCell component="th" scope="row">
-          {" "}
-          {row.ordID}
-        </TableCell>
-        <TableCell align="right">
-          {foundClient ? foundClient.Name : "Клієнта не знайдено."}
-        </TableCell>
-        <TableCell align="right">
-          {`+380 ${foundClient ? foundClient.phoneNum : ""}`}
-        </TableCell>
+        <TableCell component="th" scope="row">{row.ordID}</TableCell>
+        <TableCell align="right">{foundClient ? foundClient.Name : "Клієнта не знайдено."}</TableCell>
+        <TableCell align="right">{`+38 ${foundClient ? foundClient.phoneNum : ""}`}</TableCell>
         <TableCell align="right">{dateConvert(row.dateStart)}</TableCell>
         <TableCell align="right">{dateConvert(row.dateFinish)}</TableCell>
         <TableCell align="right">{statusDecode[row.status - 1].prop}</TableCell>
         <TableCell align="right">{row.fullPrice}</TableCell>
         <TableCell align="right">{row.paid}</TableCell>
         <TableCell align="right">{isPaid()}</TableCell>
-        <TableCell align="right">{deliveryIcon()}</TableCell>
+        <TableCell align="left"
+        sx={{maxWidth: '350px'}}
+        >{row.comments ? row.comments : ""}</TableCell>
       </TableRow>
       <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={12}>
@@ -129,12 +106,6 @@ function Row(props) {
                 justifyContent: "space-between",
               }}
             >
-              <Box>
-                <Typography variant="h6" gutterBottom component="div">
-                  Коментарі
-                </Typography>
-                {row.comments ? row.comments : "Немає коментарів"}
-              </Box>
               <Box>
               <Typography variant="h6" gutterBottom component="div">
                   Доставка
@@ -208,12 +179,12 @@ export default function CollapsibleTable({ search }) {
             <TableCell align="right">Ім'я Клієнта</TableCell>
             <TableCell align="right">Номер Телефону</TableCell>
             <TableCell align="right">Дата Початку</TableCell>
-            <TableCell align="right">Дата Завршення</TableCell>
+            <TableCell align="right">Дата Завершення</TableCell>
             <TableCell align="right">Стан</TableCell>
             <TableCell align="right">Вар-ть</TableCell>
             <TableCell align="right">Передплата</TableCell>
             <TableCell align="right">Залишок</TableCell>
-            <TableCell align="right">Монтаж</TableCell>
+            <TableCell align="center">Коментарі</TableCell>
           </TableRow>
         </TableHead>
         <TableBody >

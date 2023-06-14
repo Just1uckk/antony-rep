@@ -95,8 +95,10 @@ setWork('')
           </Select>
           </FormControl>
           <FormControl variant="standard" fullWidth sx={{paddingBottom:"10px",display: [work === 1 ? "" : "none"] }}>
-          <InputLabel id='diamLabel'>Діаметр</InputLabel>
-          <Select
+          <InputLabel sx={{display: "none"}} id='diamLabel'>Діаметр</InputLabel>
+          <TextField
+          variant="standard"
+          fullWidth
           labelId='diamLabel'
           label="Діаметр"
             value={valueOne}
@@ -104,14 +106,7 @@ setWork('')
             onChange={(e) => {
               setValueOne(e.target.value);
             }}
-          >
-            <MenuItem value={5}>ø5</MenuItem>
-            <MenuItem value={6}>ø6</MenuItem>
-            <MenuItem value={7}>ø7</MenuItem>
-            <MenuItem value={8}>ø8</MenuItem>
-            <MenuItem value={9}>ø9</MenuItem>
-            <MenuItem value={10}>ø10</MenuItem>
-          </Select>
+          ></TextField>
           </FormControl>
           <FormControl variant="standard" fullWidth sx={{paddingBottom:"10px",display: [work === 1 ? "" : "none"] }}>
           <InputLabel id='countLabel'>Кількість</InputLabel>

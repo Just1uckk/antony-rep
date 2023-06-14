@@ -141,7 +141,7 @@ export function ClientAddModal() {
               fullWidth
               variant="outlined"
               value={clientsDiscount?clientsDiscount:""}
-              label="Скидка"
+              label="Знижка"
               InputProps={{
                 endAdornment: (
                   <InputAdornment position="end"> % </InputAdornment>

@@ -106,7 +106,7 @@ const OrderInfoTab = () => {
                 <MenuItem value={5}>Граф. роботи</MenuItem>
                 <MenuItem value={6}>Готово</MenuItem>
                 <MenuItem value={7}>Монтаж</MenuItem>
-                <MenuItem value={8}>Виконано</MenuItem>
+                <MenuItem value={8}>Отриман</MenuItem>
               </Select>
             </FormControl>
           </InfoBlock>

@@ -183,7 +183,7 @@ const NestedClientsListModal = (state) => {
                         textAlign: "right",
                       }}
                     >
-                      Скидка
+                      Знижка
                     </Grid>
                     <Grid item={true} xs={0.4}></Grid>
                   </Grid>

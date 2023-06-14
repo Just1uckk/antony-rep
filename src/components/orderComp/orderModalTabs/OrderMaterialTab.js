@@ -74,11 +74,10 @@ const OrderMaterialTab = () => {
                   <TableRow>
                     <TableCell sx={{ display: deleteElement }}></TableCell>
                     <TableCell>№</TableCell>
-                    <TableCell align="center">Кіль. *</TableCell>
                     <TableCell align="center">Матеріал *</TableCell>
                     <TableCell align="center">Товщ *</TableCell>
+                    <TableCell align="center">Довж.мм *</TableCell>
                     <TableCell align="center">Шир.мм *</TableCell>
-                    <TableCell align="center">Вис.мм *</TableCell>
                     <TableCell align="center">Обробка *</TableCell>
                     <TableCell align="center" sx={{ display: dispDrill }}>
                       Свердлення
@@ -86,6 +85,7 @@ const OrderMaterialTab = () => {
                     <TableCell align="center" sx={{ display: dispPaint }}>
                       Додатково
                     </TableCell>
+                    <TableCell align="center">Кіль. *</TableCell>
                     <TableCell align="center"></TableCell>
                   </TableRow>
                 </TableHead>
@@ -104,16 +104,6 @@ const OrderMaterialTab = () => {
                       </TableCell>
                       <TableCell component="th" scope="row">
                         {row.num}
-                      </TableCell>
-                      <TableCell align="center">
-                        <TextField
-                          sx={{ width: "50px" }}
-                          value={row.count}
-                          onChange={(e) => {
-                            materialChange(index, "count", e.target.value);
-                          }}
-                          size="small"
-                        />
                       </TableCell>
                       <TableCell align="center">
                         <Select
@@ -151,9 +141,9 @@ const OrderMaterialTab = () => {
                         <TextField
                           sx={{ width: "70px" }}
                           onChange={(e) => {
-                            materialChange(index, "width", e.target.value);
+                            materialChange(index, "height", e.target.value);
                           }}
-                          value={row.width}
+                          value={row.height}
                           size="small"
                         />
                       </TableCell>
@@ -161,9 +151,9 @@ const OrderMaterialTab = () => {
                         <TextField
                           sx={{ width: "70px" }}
                           onChange={(e) => {
-                            materialChange(index, "height", e.target.value);
+                            materialChange(index, "width", e.target.value);
                           }}
-                          value={row.height}
+                          value={row.width}
                           size="small"
                         />
                       </TableCell>
@@ -181,6 +171,7 @@ const OrderMaterialTab = () => {
                           <MenuItem value={4}>Фацет 10</MenuItem>
                           <MenuItem value={5}>Фацет 15</MenuItem>
                           <MenuItem value={6}>Глубока фаска</MenuItem>
+                          <MenuItem value={7}>Без обробки</MenuItem>
                         </Select>
                       </TableCell>
                       <TableCell sx={{ display: dispDrill }}>
@@ -195,6 +186,16 @@ const OrderMaterialTab = () => {
                         <OrderAdditionalMapping
                           rowIndex={index}
                           propName={"painting"}
+                        />
+                      </TableCell>
+                      <TableCell align="center">
+                        <TextField
+                          sx={{ width: "50px" }}
+                          value={row.count}
+                          onChange={(e) => {
+                            materialChange(index, "count", e.target.value);
+                          }}
+                          size="small"
                         />
                       </TableCell>
                       <TableCell>

@@ -166,7 +166,7 @@ const toolkitSlice = createSlice({
             initialState.tempMaterialInfo[data.index][data.propName] = data.value;
         },
         orderMaterialAddNewObject(initialState) {
-            const body = { num: initialState.tempMaterialInfo[initialState.tempMaterialInfo.length - 1] ? initialState.tempMaterialInfo[initialState.tempMaterialInfo.length - 1].num + 1 : 1, count: '', material: '', thickness: '', width: '', height: '', edge: '', drilling: [], painting: [] }
+            const body = { num: initialState.tempMaterialInfo[initialState.tempMaterialInfo.length - 1] ? initialState.tempMaterialInfo[initialState.tempMaterialInfo.length - 1].num + 1 : 1, count: '', material: '', thickness: '', width: '', height: '', edge: 7, drilling: [], painting: [] }
             initialState.tempMaterialInfo.push(body)
         },
         orderMaterialRemoveAddition(initialState, {payload:data}) {
