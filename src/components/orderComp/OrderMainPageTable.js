@@ -17,7 +17,6 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import { openModal, orderModalEdit, orderSaveTable } from "../toolkitSlice";
 import PrintIcon from "@mui/icons-material/Print";
 import { OrderPrintTableGen } from "./OrderPrintTableGen";
-import { statusDecode } from "../WorkDecoding";
 import { useMemo } from "react";
 import { useState } from "react";
 import pdfMake from "pdfmake/build/pdfmake";
@@ -25,6 +24,13 @@ import moment from "moment";
 import dayjs from "dayjs";
 import "dayjs/locale/uk"
 import { Tooltip } from "@mui/material";
+import MainTableStatus from "./MainTableStatus";
+
+const style = {
+  borderRight: 0.1,
+  borderLeft: 0.1,
+  borderColor: 'grey.400'
+};
 
 function Row(props) {
   const dispatch = useDispatch();
@@ -73,7 +79,7 @@ function Row(props) {
   return (
     <React.Fragment>
       <TableRow sx={{ "& > *": { borderBottom: "unset" }, backgroundColor: rowColor }}>
-        <TableCell>
+        <TableCell sx={style}>
           <IconButton
             aria-label="expand row"
             size="small"
@@ -82,17 +88,17 @@ function Row(props) {
             {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
           </IconButton>
         </TableCell>
-        <TableCell component="th" scope="row">{row.ordID}</TableCell>
-        <TableCell align="right">{foundClient ? foundClient.Name : "Клієнта не знайдено."}</TableCell>
-        <TableCell align="right">{`+38 ${foundClient ? foundClient.phoneNum : ""}`}</TableCell>
-        <TableCell align="right">{dateConvert(row.dateStart)}</TableCell>
-        <TableCell align="right">{dateConvert(row.dateFinish)}</TableCell>
-        <TableCell align="right">{statusDecode[row.status - 1].prop}</TableCell>
-        <TableCell align="right">{row.fullPrice}</TableCell>
-        <TableCell align="right">{row.paid}</TableCell>
-        <TableCell align="right">{isPaid()}</TableCell>
+        <TableCell sx={style} component="th" scope="row">{row.ordID}</TableCell>
+        <TableCell sx={style} align="right">{foundClient ? foundClient.Name : "Клієнта не знайдено."}</TableCell>
+        <TableCell sx={style} align="right">{`+38 ${foundClient ? foundClient.phoneNum : ""}`}</TableCell>
+        <TableCell sx={style} align="right">{dateConvert(row.dateStart)}</TableCell>
+        <TableCell sx={style} align="right">{dateConvert(row.dateFinish)}</TableCell>
+        <TableCell sx={style} align="right"><MainTableStatus infoRow={row}/></TableCell>
+        <TableCell sx={style} align="right">{row.fullPrice}</TableCell>
+        <TableCell sx={style} align="right">{row.paid}</TableCell>
+        <TableCell sx={style} align="right">{isPaid()}</TableCell>
         <TableCell align="left"
-        sx={{maxWidth: '350px'}}
+        sx={{...style, maxWidth: '350px'}}
         >{row.comments ? row.comments : ""}</TableCell>
       </TableRow>
       <TableRow>
@@ -175,16 +181,16 @@ export default function CollapsibleTable({ search }) {
         <TableHead>
           <TableRow>
             <TableCell />
-            <TableCell>№</TableCell>
-            <TableCell align="right">Ім'я Клієнта</TableCell>
-            <TableCell align="right">Номер Телефону</TableCell>
-            <TableCell align="right">Дата Початку</TableCell>
-            <TableCell align="right">Дата Завершення</TableCell>
-            <TableCell align="right">Стан</TableCell>
-            <TableCell align="right">Вар-ть</TableCell>
-            <TableCell align="right">Передплата</TableCell>
-            <TableCell align="right">Залишок</TableCell>
-            <TableCell align="center">Коментарі</TableCell>
+            <TableCell sx={style} >№</TableCell>
+            <TableCell sx={style} align="right">Ім'я Клієнта</TableCell>
+            <TableCell sx={style} align="right">Номер Телефону</TableCell>
+            <TableCell sx={style} align="right">Дата Початку</TableCell>
+            <TableCell sx={style} align="right">Дата Завершення</TableCell>
+            <TableCell sx={style} align="right">Стан</TableCell>
+            <TableCell sx={style} align="right">Вар-ть</TableCell>
+            <TableCell sx={style} align="right">Передплата</TableCell>
+            <TableCell sx={style} align="right">Залишок</TableCell>
+            <TableCell sx={style} align="center">Коментарі</TableCell>
           </TableRow>
         </TableHead>
         <TableBody >

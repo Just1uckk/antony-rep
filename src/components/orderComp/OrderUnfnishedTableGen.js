@@ -36,7 +36,6 @@ export const OrderUnfinishedTableGen = (valueClients, valueOrders) => {
         if (temp){
             tempering.push(temp)
         }})
-        console.log(tempering)
         return(tempering.length?{text:"ТАК", fontSize: 10, bold: true}:{text:"", fontSize: 10})
       }
 

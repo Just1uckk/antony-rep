@@ -16,8 +16,8 @@ export const edgeDecode = [
     {value: 1, prop: 'Шліфовка'},
     {value: 2, prop: 'Поліровка'},
     {value: 3, prop: 'Збиття фаски'},
-    {value: 4, prop: 'Фацет 10'},
-    {value: 5, prop: 'Фацет 15'},
+    {value: 4, prop: 'Фацет'},
+    {value: 5, prop: 'Фацет'},
     {value: 6, prop: 'Глубока фаска'},
     {value: 7, prop: 'Без обробки'},
 ]
@@ -40,6 +40,7 @@ export const statusDecode = [
     {value: 6, prop: 'Готово'},
     {value: 7, prop: 'Монтаж'},
     {value: 8, prop: 'Отриман'},
+    {value: 9, prop: 'Гартування'},
 ]
 
 export const sandblastingDecode = [

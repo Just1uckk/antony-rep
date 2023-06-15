@@ -168,8 +168,8 @@ const OrderMaterialTab = () => {
                           <MenuItem value={1}>Шліфовка</MenuItem>
                           <MenuItem value={2}>Поліровка</MenuItem>
                           <MenuItem value={3}>Збиття фаски</MenuItem>
-                          <MenuItem value={4}>Фацет 10</MenuItem>
-                          <MenuItem value={5}>Фацет 15</MenuItem>
+                          <MenuItem value={4}>Фацет</MenuItem>
+                          {/* <MenuItem value={5}>Фацет 15</MenuItem> */}
                           <MenuItem value={6}>Глубока фаска</MenuItem>
                           <MenuItem value={7}>Без обробки</MenuItem>
                         </Select>

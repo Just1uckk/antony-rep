@@ -104,6 +104,7 @@ const OrderInfoTab = () => {
                 <MenuItem value={3}>Обробка</MenuItem>
                 <MenuItem value={4}>Свердлення</MenuItem>
                 <MenuItem value={5}>Граф. роботи</MenuItem>
+                <MenuItem value={9}>Гартування</MenuItem>
                 <MenuItem value={6}>Готово</MenuItem>
                 <MenuItem value={7}>Монтаж</MenuItem>
                 <MenuItem value={8}>Отриман</MenuItem>
