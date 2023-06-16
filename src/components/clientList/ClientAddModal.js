@@ -5,7 +5,6 @@ import Button from "@mui/material/Button";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchClients, openModal, uploadEditClient } from "../toolkitSlice";
 import { uploadNewClient } from "../toolkitSlice";
-import { nanoid } from "nanoid";
 import { TextField } from "@mui/material";
 import InputAdornment from "@mui/material/InputAdornment";
 import { ToastContainer, toast } from "react-toastify";

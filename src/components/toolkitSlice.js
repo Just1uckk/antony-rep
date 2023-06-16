@@ -267,7 +267,6 @@ const toolkitSlice = createSlice({
                     isNumber = isNumber.sort((b,a) => (Number(a.id) > Number(b.id)) ? 1 : ((Number(b.id) > Number(a.id)) ? -1 : 0))
                 }
                 const finishedFilter = [...isNumber, ...notNumber]
-                console.log(notNumber, isNumber)
                 initialState.clientsAllList = finishedFilter;
                 initialState.err = null;
                 initialState.isLoading = false;
