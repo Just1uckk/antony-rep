@@ -10,7 +10,9 @@ const OrderClientSelectorComp = () => {
   const lightUpErrors= useSelector((state) => state.toolkit.makeThemRed)
   const clientsList = useSelector((state) => state.toolkit.clientsAllList);
   const clientsID = useSelector((state) => state.toolkit.tempOrderInfo.clID);
-  const foundClient = clientsID ? clientsList.find(obj => obj.id === clientsID): {Name: "", discount: "", phoneNum: ""};
+  const searchClient = clientsList.find(obj => obj.id === clientsID)
+  console.log(searchClient, clientsID)
+  const foundClient = searchClient ? searchClient : {Name: "", discount: "", phoneNum: ""};
 
   const openUserModal = async () => {
     dispatch(fetchClients());

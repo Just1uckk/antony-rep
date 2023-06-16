@@ -70,8 +70,8 @@ export function ClientAddModal() {
             setclientsName(setName)
         }},[setName, clientsName])
 
-    const groupClientInfo = async () => {
-      const id = await nanoid();
+    const groupClientInfo = () => {
+      const id = Date.now();
       const newClient = {
         Name: clientsName,
         discount: clientsDiscount,

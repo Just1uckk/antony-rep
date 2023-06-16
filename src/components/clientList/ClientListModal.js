@@ -233,6 +233,9 @@ const NestedClientsListModal = (state) => {
           Додати Клієнта
         </Button>
         <IconButton
+        sx={{
+          display: orderSelectClient ? "none" : ""
+        }}
           variant="contained"
           onClick={() => {
             setDeleteClients(!deleteClients)

@@ -250,7 +250,25 @@ const toolkitSlice = createSlice({
                 initialState.isLoading = true;
               },
               [fetchClients.fulfilled]: (initialState, action) => {
-                initialState.clientsAllList = action.payload;
+                const clientsArr = [...action.payload]
+                const notNumber = clientsArr.filter((element)=>{
+                    if (isNaN(Number(element.id))) {
+                        return true
+                    }
+                    return false
+                })
+                let isNumber = clientsArr.filter((element)=>{
+                    if (!isNaN(Number(element.id))) {
+                        return true
+                    }
+                    return false
+                })
+                if(isNumber.length){
+                    isNumber = isNumber.sort((b,a) => (Number(a.id) > Number(b.id)) ? 1 : ((Number(b.id) > Number(a.id)) ? -1 : 0))
+                }
+                const finishedFilter = [...isNumber, ...notNumber]
+                console.log(notNumber, isNumber)
+                initialState.clientsAllList = finishedFilter;
                 initialState.err = null;
                 initialState.isLoading = false;
               },
