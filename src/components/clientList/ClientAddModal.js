@@ -37,9 +37,9 @@ export function ClientAddModal() {
 
     const setName = useSelector((state) => state.toolkit.clientAddModalName)
     const dispatch = useDispatch();
-    const [clientsName, setclientsName] = useState('');
+    const [clientsName, setclientsName] = useState("");
     const [clientsNum, setclientsNum] = useState("");
-    const [clientsDiscount, setclientsDiscount] = useState();
+    const [clientsDiscount, setclientsDiscount] = useState("");
 
     useEffect(() => {
       if(editClientId&&clientsList){
