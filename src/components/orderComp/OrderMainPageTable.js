@@ -88,15 +88,15 @@ function Row(props) {
             {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
           </IconButton>
         </TableCell>
-        <TableCell sx={style} component="th" scope="row">{row.ordID}</TableCell>
-        <TableCell sx={style} align="right">{foundClient ? foundClient.Name : "Клієнта не знайдено."}</TableCell>
-        <TableCell sx={style} align="right">{`+38 ${foundClient ? foundClient.phoneNum : ""}`}</TableCell>
-        <TableCell sx={style} align="right">{dateConvert(row.dateStart)}</TableCell>
-        <TableCell sx={style} align="right">{dateConvert(row.dateFinish)}</TableCell>
-        <TableCell sx={style} align="right"><MainTableStatus infoRow={row}/></TableCell>
-        <TableCell sx={style} align="right">{row.fullPrice}</TableCell>
-        <TableCell sx={style} align="right">{row.paid}</TableCell>
-        <TableCell sx={style} align="right">{isPaid()}</TableCell>
+        <TableCell sx={style} align="center" component="th" scope="row">{row.ordID}</TableCell>
+        <TableCell sx={style} align="left">{foundClient ? foundClient.Name : "Клієнта не знайдено."}</TableCell>
+        <TableCell sx={style} align="left">{`+38 ${foundClient ? foundClient.phoneNum : ""}`}</TableCell>
+        <TableCell sx={style} align="left">{dateConvert(row.dateStart)}</TableCell>
+        <TableCell sx={style} align="left">{dateConvert(row.dateFinish)}</TableCell>
+        <TableCell sx={style} align="left"><MainTableStatus infoRow={row}/></TableCell>
+        <TableCell sx={style} align="left">{row.fullPrice}</TableCell>
+        <TableCell sx={style} align="left">{row.paid}</TableCell>
+        <TableCell sx={style} align="left">{isPaid()}</TableCell>
         <TableCell align="left"
         sx={{...style, maxWidth: '350px'}}
         >{row.comments ? row.comments : ""}</TableCell>
@@ -181,16 +181,16 @@ export default function CollapsibleTable({ search }) {
         <TableHead>
           <TableRow>
             <TableCell />
-            <TableCell sx={style} >№</TableCell>
-            <TableCell sx={style} align="right">Ім'я Клієнта</TableCell>
-            <TableCell sx={style} align="right">Номер Телефону</TableCell>
-            <TableCell sx={style} align="right">Дата Початку</TableCell>
-            <TableCell sx={style} align="right">Дата Завершення</TableCell>
-            <TableCell sx={style} align="right">Стан</TableCell>
-            <TableCell sx={style} align="right">Вар-ть</TableCell>
-            <TableCell sx={style} align="right">Передплата</TableCell>
-            <TableCell sx={style} align="right">Залишок</TableCell>
-            <TableCell sx={style} align="center">Коментарі</TableCell>
+            <TableCell sx={style} align="center" >№</TableCell>
+            <TableCell sx={style} align="left">Ім'я Клієнта</TableCell>
+            <TableCell sx={style} align="left">Номер Телефону</TableCell>
+            <TableCell sx={style} align="left">Дата Початку</TableCell>
+            <TableCell sx={style} align="left">Дата Завершення</TableCell>
+            <TableCell sx={style} align="left">Стан</TableCell>
+            <TableCell sx={style} align="left">Вар-ть</TableCell>
+            <TableCell sx={style} align="left">Передплата</TableCell>
+            <TableCell sx={style} align="left">Залишок</TableCell>
+            <TableCell sx={style} align="left">Коментарі</TableCell>
           </TableRow>
         </TableHead>
         <TableBody >

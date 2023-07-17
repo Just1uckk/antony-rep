@@ -3,7 +3,7 @@ export const workDecode = [
     {value: 2, prop: 'Уф.Друк'},
     {value: 3, prop: 'Фарбування'},
     {value: 4, prop: 'Подвійне Фарбування'},
-    {value: 5, prop: 'Піскуоструй'},
+    {value: 5, prop: 'Сатинування'},
     {value: 6, prop: 'Гартування'},
     {value: 7, prop: 'Порізка Лазером'},
     {value: 8, prop: 'Поклійка Оракала'},
@@ -29,6 +29,7 @@ export const materialDecode = [
     {value: 4, prop: 'Бронза'},
     {value: 5, prop: 'Графіт'},
     {value: 6, prop: 'Триплекс'},
+    {value: 7, prop: 'Сатин'},
 ]
 
 export const statusDecode = [
@@ -36,7 +37,8 @@ export const statusDecode = [
     {value: 2, prop: 'Порізка'},
     {value: 3, prop: 'Обробка'},
     {value: 4, prop: 'Свердлення'},
-    {value: 5, prop: 'Граф. роботи'},
+    {value: 5, prop: 'Уф. друк'},
+    {value: 10, prop: 'Фарбування'},
     {value: 6, prop: 'Готово'},
     {value: 7, prop: 'Монтаж'},
     {value: 8, prop: 'Отриман'},
