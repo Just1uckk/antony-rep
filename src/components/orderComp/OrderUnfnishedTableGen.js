@@ -22,9 +22,11 @@ export const OrderUnfinishedTableGen = (valueClients, valueOrders) => {
             case 3 : return "Обробка";
             case 4 : return "Свердлення";
             case 5 : return "Граф. роботи";
+            case 10 : return "Фарбування";
             case 6 : return "Готово";
             case 7 : return "Монтаж";
             case 8 : return "Отриман";
+            case 9 : return "Гартування";
             default : return "";
         }
       }
@@ -54,7 +56,7 @@ export const OrderUnfinishedTableGen = (valueClients, valueOrders) => {
       
         getOrdData.forEach((row) => {
             const foundClient = clientsList.find((obj) => obj.id === row.clID);
-            if(row.status !== 8){
+            if(row.status !== 8 && row.status !== 6){
         table.push(
             [
                 {text: `${row.ordID}`, fontSize: 10}, 
